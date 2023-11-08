@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
-  Color bannerColor = Color.fromARGB(255, 28, 133, 133);
-  Color txtColorDark = Colors.white;
-  Color txtColorWhite = Colors.black;
-  Color bgColorWhite = Colors.white;
-  Color bgColorDark = Colors.black;
+  static Color bannerColor = Color.fromARGB(255, 28, 133, 133);
+  static Color txtColorDark = Colors.white;
+  static Color txtColorWhite = Colors.black;
+  static Color bgColorWhite = Colors.white;
+  static Color bgColorDark = Colors.black;
+  static Color systemGrey = Colors.grey;
 }
