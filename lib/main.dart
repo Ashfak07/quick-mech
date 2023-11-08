@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/view/home_screen/home_screen.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
 import 'package:quickmech/view/splash_screen/splash_screen.dart';
 
@@ -17,5 +18,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
+
   }
 }

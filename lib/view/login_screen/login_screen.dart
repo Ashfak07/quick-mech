@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/registration_screen/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,152 +23,135 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusNode fieldone = FocusNode();
     FocusNode fieldtwo = FocusNode();
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Form(
-      key: _formkey,
-      child: Column(
-        children: [
-          Container(
-            height: 300,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                color: Colors.lightGreen),
-            child: Image.asset(
-              'assets/images/shopping.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 44),
-            child: Material(
-              borderRadius: BorderRadius.circular(15),
-              elevation: 4,
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: _usernamecontroller,
-                    keyboardType: TextInputType.emailAddress,
-                    scrollPhysics: NeverScrollableScrollPhysics(),
-                    focusNode: fieldone,
-                    onFieldSubmitted: (value) {
-                      FocusScope.of(context).requestFocus(fieldtwo);
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'username or email',
-                        prefixIcon: Icon(Icons.person)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return ('required');
-                        // } else if (value.isNotEmpty &&
-                        //     mydb.keys.contains(value)) {
-                        //   return ("UserName is not registered");
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // Positioned(
-          //     bottom: 450,
-          //     child: Padding(
-          //       padding: const EdgeInsets.only(left: 180),
-          //       child: Container(child: Text('OR')),
-          //     )),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
-            child: Material(
-              borderRadius: BorderRadius.circular(15),
-              elevation: 4,
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: _passwordcontroller,
-                    scrollPhysics: NeverScrollableScrollPhysics(),
-                    focusNode: fieldtwo,
-                    // onFieldSubmitted: (value) {
-                    //   FocusScope.of(context).requestFocus(fieldtwo);
-                    // },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'password',
-                        prefixIcon: Icon(Icons.key),
-                        suffixIcon: togglePassword()),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return ('required');
-                      } else {
-                        return (null);
-                      }
-                    },
-                    obscureText: _isSecurePassword,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          key: _formkey,
+          child: Column(
             children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 1),
-                    child: Text(
-                      'Dont have account?',
-                      style: TextStyle(fontSize: mediawidth * .03),
+              Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
                     ),
-                  )),
+                    color: ColorConstants.bannerColor),
+                // child: Image.asset(
+                //   'assets/images/shopping.png',
+                //   fit: BoxFit.cover,
+                // ),
+              ),
+
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _usernamecontroller,
+                      keyboardType: TextInputType.emailAddress,
+                      scrollPhysics: NeverScrollableScrollPhysics(),
+                      focusNode: fieldone,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(fieldtwo);
+                      },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'username or email',
+                          prefixIcon: Icon(Icons.person)),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return ('required');
+                          // } else if (value.isNotEmpty &&
+                          //     mydb.keys.contains(value)) {
+                          //   return ("UserName is not registered");
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(height: 15),
+                    TextFormField(
+                      controller: _passwordcontroller,
+                      scrollPhysics: NeverScrollableScrollPhysics(),
+                      focusNode: fieldtwo,
+                      // onFieldSubmitted: (value) {
+                      //   FocusScope.of(context).requestFocus(fieldtwo);
+                      // },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'password',
+                          prefixIcon: Icon(Icons.key),
+                          suffixIcon: togglePassword()),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return ('required');
+                        } else {
+                          return (null);
+                        }
+                      },
+                      obscureText: _isSecurePassword,
+                    ),
+                  ],
+                ),
+              ),
+              // Positioned(
+              //     bottom: 450,
+              //     child: Padding(
+              //       padding: const EdgeInsets.only(left: 180),
+              //       child: Container(child: Text('OR')),
+              //     )),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistrationScreen()));
+                      },
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 1),
+                        child: Text(
+                          'Dont have account?',
+                          style: TextStyle(fontSize: mediawidth * .03),
+                        ),
+                      )),
+                ],
+              ),
+
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 70, vertical: 5),
+                child: InkWell(
+                  onTap: () {
+                    if (_formkey.currentState!.validate()) {
+                      // checkLogin(context, 0);
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorConstants.bannerColor,
+                        borderRadius: BorderRadius.circular(15)),
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        "Sign in",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 5),
-            child: InkWell(
-              onTap: () {
-                if (_formkey.currentState!.validate()) {
-                  // checkLogin(context, 0);
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(15)),
-                height: 50,
-                child: Center(
-                  child: Text(
-                    "Sign in",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 
   // void checkLogin(BuildContext context, index) async {
