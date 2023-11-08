@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quickmech/utils/color_constants.dart';
+//import 'package:quickmech/utils/color_constants.dart';
 
 class ActivityScreen extends StatelessWidget {
   const ActivityScreen({super.key});
@@ -12,7 +12,7 @@ class ActivityScreen extends StatelessWidget {
             "ACTIVITY",
             style: TextStyle(
               fontSize: 25,
-              color: ColorConstants().txtColorWhite,
+              color: Colors.black,
             ),
           ),
           forceMaterialTransparency: true,
