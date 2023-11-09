@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/Edit_profile/edit_profile.dart';
+import 'package:quickmech/view/activity_screen/activity.dart';
+import 'package:quickmech/view/home_screen/home_screen.dart';
+// import 'package:quickmech/view/homescreen/homescreen.dart';
+import 'package:quickmech/view/saved/saved_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -8,12 +13,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> _buildScreens() {
-      return [
-        Center(child: Text('Home')),
-        Center(child: Text('Saved')),
-        Center(child: Text('History')),
-        Center(child: Text('Profile')),
-      ];
+      return [HomeScreen(), saved(), ActivityScreen(), edit_profile()];
     }
 
     List<PersistentBottomNavBarItem> _navBarsItems() {
