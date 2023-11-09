@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quickmech/db/home_datas.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/home_screen/item.dart';
+import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -83,6 +84,71 @@ class _HomeScreenState extends State<HomeScreen> {
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
+
+            SizedBox(
+              height: Mediaheight * .03,
+            ),
+            Text('Category'),
+            Container(
+                height: 120,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _categorylist.category.length,
+                    itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              width: Mediawidth * .3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorConstants.bannerColor,
+                              ),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      _categorylist.category[index].image,
+                                      fit: BoxFit.cover,
+                                      height: 50,
+                                    ),
+                                  ),
+                                  Text(
+                                    _categorylist.category[index].category,
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              )),
+                        ))),
+            Divider(),
+            Container(
+              height: 378,
+              child: GridView.builder(
+                  controller: _scrollController,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 16,
+                  itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MechanicProfile(),
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorConstants.bannerColor),
+                            child: Column(
+                              children: [Icon(Icons.person)],
+                            ),
+                          ),
+                        ),
+                      )),
+
             backgroundColor: ColorConstants.bannerColor,
             expandedHeight: Mediaheight * .2,
             flexibleSpace: FlexibleSpaceBar(
@@ -118,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+
             ),
           ),
           SliverList.list(children: [
