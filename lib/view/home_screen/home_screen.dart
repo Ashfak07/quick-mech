@@ -87,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: Mediaheight * .03,
             ),
+            Text('Category'),
             Container(
                 height: 120,
                 child: ListView.builder(
