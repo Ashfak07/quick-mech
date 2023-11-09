@@ -15,11 +15,15 @@ class _SaveddataState extends State<Saveddata> {
       appBar: AppBar(
         title: Text(
           "SAVED",style: TextStyle(
-            fontSize: 25,color: Colors.black),),forceMaterialTransparency: true,
+            fontSize: 25,color: Colors.black),
+            ),forceMaterialTransparency: true,
             ),
       body:
-       GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemCount: 15,itemBuilder: (context, index) {
+       GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3),
+        itemCount: 15,
+        itemBuilder: (context, index) {
         return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -27,7 +31,9 @@ class _SaveddataState extends State<Saveddata> {
                         borderRadius: BorderRadius.circular(10),
                         color: ColorConstants.bannerColor),
                     child: Column(
-                      children: [Icon(Icons.person)],
+                      children: 
+                      [
+                        Icon(Icons.person)],
                     ),
                   ),
                 );
