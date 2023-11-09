@@ -12,7 +12,7 @@ class _savedState extends State<saved> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
-      title: Text("Saved",style: TextStyle(fontSize: 25
+      title: Text("SAVED",style: TextStyle(fontSize: 25
         ,color: Colors.black),),
     forceMaterialTransparency: true,
     ),

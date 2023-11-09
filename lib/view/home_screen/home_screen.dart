@@ -123,6 +123,25 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 378,
               child: GridView.builder(
+
+                controller: _scrollController,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                scrollDirection: Axis.horizontal,
+                itemCount: 16,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: ColorConstants.bannerColor),
+                    child: Column(
+                      children: [Icon(Icons.person)],
+                    ),
+                  ),
+                ),
+              ),
+
                   controller: _scrollController,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
@@ -184,6 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+
 
             ),
           ),
