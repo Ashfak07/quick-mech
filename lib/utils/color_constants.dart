@@ -7,5 +7,4 @@ class ColorConstants {
   static Color bgColorWhite = Colors.white;
   static Color bgColorDark = Colors.black;
   static Color systemGrey = Colors.grey;
-
 }
