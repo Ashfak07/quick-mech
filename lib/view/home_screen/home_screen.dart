@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/home_screen/item.dart';
+import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -129,12 +130,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 16,
                   itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: ColorConstants.bannerColor),
-                          child: Column(
-                            children: [Icon(Icons.person)],
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MechanicProfile(),
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorConstants.bannerColor),
+                            child: Column(
+                              children: [Icon(Icons.person)],
+                            ),
                           ),
                         ),
                       )),
