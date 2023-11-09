@@ -7,6 +7,7 @@ class Categorylist {
         category: 'Three wheeler', image: 'assets/images/7796041.png'),
     CategoryModel(
         category: 'Four wheeler', image: 'assets/images/1728122-200.png'),
-    CategoryModel(category: 'Heavy vehichle', image: 'assets/images/truck.png')
+    CategoryModel(
+        category: 'Heavy vehichle', image: 'assets/images/1421760-200.png')
   ];
 }

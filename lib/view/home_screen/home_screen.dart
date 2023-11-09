@@ -153,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               BorderRadius.circular(10),
                                           color: ColorConstants.bannerColor,
                                           gradient: LinearGradient(colors: [
+                                            Colors.black.withOpacity(.8),
                                             ColorConstants.bannerColor,
                                             Colors.white,
                                           ])),
@@ -170,8 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             _categorylist
                                                 .category[index].category,
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       )),
@@ -206,9 +208,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Colors.black.withOpacity(.3)
                                           ]),
                                         ),
-                                        child: Image.asset(
-                                          _homeData.offerList[index].images,
-                                          fit: BoxFit.cover,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            _homeData.offerList[index].images,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ));
                                   }),
                               ListView.builder(
@@ -259,6 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
                                             colors: [
+                                              Colors.black.withOpacity(.9),
                                               ColorConstants.bannerColor,
                                               Colors.white,
                                             ])),
