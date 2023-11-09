@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/intro_screen/intro_screen.dart';
 import 'package:quickmech/view/registration_screen/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -129,6 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: InkWell(
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => IntroScreen()));
                       // checkLogin(context, 0);
                     }
                   },
