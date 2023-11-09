@@ -6,7 +6,7 @@ class edit_profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           Center(
             child: Padding(
@@ -40,8 +40,8 @@ class edit_profile extends StatelessWidget {
           SizedBox(
             height: 40,
           ),
-          SizedBox(
-            width: 330,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(
                   hintText: "Name",
@@ -52,8 +52,8 @@ class edit_profile extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          SizedBox(
-            width: 330,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(
                   hintText: "Email",
@@ -64,8 +64,8 @@ class edit_profile extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          SizedBox(
-            width: 330,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(
                   hintText: "Mobile",
@@ -76,7 +76,10 @@ class edit_profile extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          ElevatedButton(onPressed: () {}, child: Text("Save"))
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(onPressed: () {}, child: Text("Save")),
+          )
         ],
       ),
     );
