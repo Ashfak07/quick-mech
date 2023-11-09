@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/view/profile_screen/widget/contact%20_support_screen/contact%20_support_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,137 +14,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: ListView(
         children: [
-          Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Hey, Flutter',
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                      ],
-                    ),
-                    CircleAvatar(
-                      radius: 40,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Divider(
-                  thickness: 5,
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 4),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                          child: Text(
-                        'Payment',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 4),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                          child: Text(
-                        'Activity',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 4),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                          child: Text(
-                        'Help',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 0,
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
           Column(
-            children: [
-              ListTile(
-                title: Text(
-                  'Settings',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'Messages',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'Register as mechanic',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'Account points',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(''),
-                ),
+                height: 50,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(20)),
+                height: 150,
+                width: 150,
               ),
               SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Logout'),
-                ),
+                height: 5,
               ),
+              Text(
+                'John',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                '9658232520',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(
+                thickness: 1,
+                color: Colors.black,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text(
+                    'Settings',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_circle_right_rounded,
+                      size: 40,
+                    ),
+                  )),
+              ListTile(
+                  leading: Icon(Icons.messenger_outline_rounded),
+                  title: Text(
+                    'Messages',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_circle_right_rounded,
+                      size: 40,
+                    ),
+                  )),
+              ListTile(
+                  leading: Icon(Icons.account_balance_wallet_rounded),
+                  title: Text(
+                    'Account points',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_circle_right_rounded,
+                      size: 40,
+                    ),
+                  )),
+              ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text(
+                    'Privacy and policy',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_circle_right_rounded,
+                      size: 40,
+                    ),
+                  )),
+              ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text(
+                    'Contact support',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ContactSupportScreen(),
+                      ));
+                    },
+                    icon: Icon(
+                      Icons.arrow_circle_right_rounded,
+                      size: 40,
+                    ),
+                  )),
+              ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text(
+                    'About us',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_circle_right_rounded,
+                      size: 40,
+                    ),
+                  )),
             ],
           ),
         ],

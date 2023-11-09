@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((value) => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => SplashScreen(),
+              builder: (context) => LoginScreen(),
             )));
   }
 
