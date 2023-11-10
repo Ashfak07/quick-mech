@@ -83,9 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
               'QUICK MECH',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-
-            ), 
-
             ),
             backgroundColor: ColorConstants.bannerColor,
             expandedHeight: Mediaheight * .2,
@@ -123,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-
           ),
           SliverList.list(children: [
             SingleChildScrollView(
