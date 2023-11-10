@@ -83,7 +83,47 @@ class _HomeScreenState extends State<HomeScreen> {
               'QUICK MECH',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+
             ), 
+
+            ),
+            backgroundColor: ColorConstants.bannerColor,
+            expandedHeight: Mediaheight * .2,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      color: ColorConstants.bannerColor,
+                    ),
+                  ),
+                  // SizedBox(
+                  //   height: Mediaheight * .04,
+                  // ),
+                  Container(
+                    height: Mediaheight * .05,
+                    width: Mediawidth * .7,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    child: TextFormField(
+                      textAlignVertical: TextAlignVertical.center,
+                      enableInteractiveSelection: true,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.search),
+                          labelText: 'Search'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
           ),
           SliverList.list(children: [
             SingleChildScrollView(
@@ -117,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               BorderRadius.circular(10),
                                           color: ColorConstants.bannerColor,
                                           gradient: LinearGradient(colors: [
+                                            Colors.black.withOpacity(.8),
                                             ColorConstants.bannerColor,
                                             Colors.white,
                                           ])),
@@ -134,8 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             _categorylist
                                                 .category[index].category,
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       )),
@@ -170,9 +212,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Colors.black.withOpacity(.3)
                                           ]),
                                         ),
-                                        child: Image.asset(
-                                          _homeData.offerList[index].images,
-                                          fit: BoxFit.cover,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            _homeData.offerList[index].images,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ));
                                   }),
                               ListView.builder(
@@ -198,32 +244,41 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                     ),
                     Divider(),
-                    Container(
-                      height: Mediaheight * .4,
-                      child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 20,
-                          itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: ColorConstants.bannerColor,
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [
-                                            ColorConstants.bannerColor,
-                                            Colors.white,
-                                          ])),
-                                  child: Column(
-                                    children: [Icon(Icons.person)],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MechanicProfile()));
+                      },
+                      child: Container(
+                        height: Mediaheight * .4,
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 20,
+                            itemBuilder: (context, index) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: ColorConstants.bannerColor,
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Colors.black.withOpacity(.9),
+                                              ColorConstants.bannerColor,
+                                              Colors.white,
+                                            ])),
+                                    child: Column(
+                                      children: [Icon(Icons.person)],
+                                    ),
                                   ),
-                                ),
-                              )),
+                                )),
+                      ),
                     ),
                     SizedBox(
                       height: Mediaheight * .1,
