@@ -53,24 +53,24 @@ class _edit_profileState extends State<edit_profile> {
             SizedBox(
               height: 25,
             ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Change profile",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(Icons.edit)
-                ],
-              ),
-            ),
+            // Center(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Change profile",
+            //         style: TextStyle(
+            //             color: Colors.black,
+            //             fontWeight: FontWeight.bold,
+            //             fontSize: 18),
+            //       ),
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Icon(Icons.edit)
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 25,
             ),
