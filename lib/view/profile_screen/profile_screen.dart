@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {},
                     icon: Icon(
                       Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      size: 41,
                     ),
                   )),
             ],
