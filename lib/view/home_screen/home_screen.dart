@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quickmech/db/home_datas.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/home_screen/item.dart';
@@ -102,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   // SizedBox(
                   //   height: Mediaheight * .04,
                   // ),
+                  // Text('Good Morning'),
                   Container(
                     height: Mediaheight * .05,
                     width: Mediawidth * .7,
@@ -114,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.search),
-                          labelText: 'Search'),
+                          hintText: 'Search'),
                     ),
                   ),
                 ],
@@ -133,12 +135,76 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Category',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
+                      child: Container(
+                          foregroundDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)),
+                          height: 200,
+                          width: Mediawidth,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: ColorConstants.bannerColor),
+                          child: Stack(
+                            fit: StackFit.loose,
+                            children: [
+                              PageView.builder(
+                                  itemCount: _homeData.offerList.length,
+                                  controller: _pageController,
+                                  onPageChanged: (value) {
+                                    pageindi = value;
+                                    setState(() {});
+                                  },
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all()
+                                            // gradient: LinearGradient(colors: [
+                                            //   Colors.black.withOpacity(.6),
+                                            //   Colors.black.withOpacity(.3)
+                                            // ]),
+                                            ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            _homeData.offerList[index].images,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ));
+                                  }),
+                              Positioned.fill(
+                                left: 150,
+                                child: Container(
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _homeData.offerList.length,
+                                    itemBuilder: (context, index) => SizedBox(
+                                      width: 12,
+                                      child: Positioned.fill(
+                                        child: Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: CircleAvatar(
+                                            radius: pageindi == index ? 6 : 3,
+                                            backgroundColor: pageindi == index
+                                                ? Colors.blue
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                     ),
+                    Divider(),
+                    Text('Category',
+                        style: GoogleFonts.bebasNeue(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
                     Container(
                         height: 120,
                         child: ListView.builder(
@@ -153,10 +219,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                               BorderRadius.circular(10),
                                           color: ColorConstants.bannerColor,
                                           gradient: LinearGradient(colors: [
-                                            Colors.black.withOpacity(.8),
-                                            ColorConstants.bannerColor,
                                             Colors.white,
-                                          ])),
+                                            ColorConstants.bannerColor,
+                                            Colors.black.withOpacity(.9),
+                                          ], begin: Alignment.topLeft)),
                                       child: Column(
                                         children: [
                                           Padding(
@@ -178,67 +244,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       )),
                                 ))),
-                    Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          foregroundDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 200,
-                          width: Mediawidth,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: ColorConstants.bannerColor),
-                          child: Stack(
-                            children: [
-                              PageView.builder(
-                                  itemCount: _homeData.offerList.length,
-                                  controller: _pageController,
-                                  onPageChanged: (value) {
-                                    pageindi = value;
-                                    setState(() {});
-                                  },
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(colors: [
-                                            Colors.black.withOpacity(.6),
-                                            Colors.black.withOpacity(.3)
-                                          ]),
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            _homeData.offerList[index].images,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ));
-                                  }),
-                              ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _homeData.offerList.length,
-                                itemBuilder: (context, index) => SizedBox(
-                                  width: 12,
-                                  child: Positioned(
-                                    right: 3,
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: CircleAvatar(
-                                        radius: pageindi == index ? 6 : 3,
-                                        backgroundColor: pageindi == index
-                                            ? Colors.blue
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
                     Divider(),
                     GestureDetector(
                       onTap: () {
