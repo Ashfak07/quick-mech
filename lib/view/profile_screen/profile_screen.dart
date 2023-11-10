@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quickmech/view/profile_screen/widget/contact%20_support_screen/contact%20_support_screen.dart';
+import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/contact%20_support_screen.dart';
+import 'package:quickmech/view/profile_screen/screens/settings_screen/settings_screen.dart';
+import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -20,12 +23,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 50,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(20)),
-                height: 150,
-                width: 150,
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(20)),
+                    height: 150,
+                    width: 150,
+                  ),
+                  Positioned(
+                      bottom: -5,
+                      right: -5,
+                      child: CircleAvatar(
+                        radius: 19,
+                        backgroundColor: ColorConstants.bgColorWhite,
+                        child: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: ColorConstants.systemGrey,
+                          child: InkWell(
+                            onTap: () {
+                              //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => edit_profile(),));
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              size: 20,
+                              color: ColorConstants.bgColorDark,
+                            ),
+                          ),
+                        ),
+                      )),
+                ],
               ),
               SizedBox(
                 height: 5,
@@ -58,10 +86,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SettingsScreen(),
+                      ));
+                    },
                     icon: Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      Icons.arrow_forward_ios_sharp,
                     ),
                   )),
               ListTile(
@@ -73,8 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   trailing: IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      Icons.arrow_forward_ios_sharp,
                     ),
                   )),
               ListTile(
@@ -86,25 +116,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   trailing: IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      Icons.arrow_forward_ios_sharp,
                     ),
                   )),
               ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.description_outlined),
                   title: Text(
-                    'Privacy and policy',
+                    'Terms and conditions',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TermsAndConditionsScreen(),
+                      ));
+                    },
                     icon: Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      Icons.arrow_forward_ios_sharp,
                     ),
                   )),
               ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.contact_support_outlined),
                   title: Text(
                     'Contact support',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -116,12 +148,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ));
                     },
                     icon: Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      Icons.arrow_forward_ios_sharp,
                     ),
                   )),
               ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.info_outline),
                   title: Text(
                     'About us',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -129,8 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   trailing: IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 40,
+                      Icons.arrow_forward_ios_sharp,
                     ),
                   )),
             ],
