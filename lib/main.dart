@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MechanicProfileController(),),
@@ -30,5 +31,8 @@ class MyApp extends StatelessWidget {
             useMaterial3: true),
       ),
     );
+
+
+
   }
 }

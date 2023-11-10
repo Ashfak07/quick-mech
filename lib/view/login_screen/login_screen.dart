@@ -185,18 +185,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // SizedBox(height: 235),
-              Container(
-                height: 190,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(80),
-                    ),
-                    color: ColorConstants.bannerColor),
-                // child: Image.asset(
-                //   'assets/images/shopping.png',
-                //   fit: BoxFit.cover,
-                // ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(80),
+                        ),
+                        color: ColorConstants.bannerColor),
+                    // child: Image.asset(
+                    //   'assets/images/shopping.png',
+                    //   fit: BoxFit.cover,
+                    // ),
+                  ),
+                ],
               ),
             ],
           ),
