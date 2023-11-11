@@ -56,7 +56,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       child: Text(
                         'Skip',
                         style: TextStyle(
-                            color: ColorConstants.txtColorDark,
+                            color: ColorConstants.primaryWhite,
                             fontSize: 16,
                             fontWeight: FontWeight.w500),
                       ),
@@ -93,7 +93,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             child: Text(
                               'Done',
                               style: TextStyle(
-                                  color: ColorConstants.txtColorDark,
+                                  color: ColorConstants.primaryWhite,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -118,13 +118,13 @@ class _IntroScreenState extends State<IntroScreen> {
                               Text(
                                 'Next',
                                 style: TextStyle(
-                                    color: ColorConstants.txtColorDark,
+                                    color: ColorConstants.primaryWhite,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500),
                               ),
                               Icon(
                                 Icons.arrow_forward,
-                                color: ColorConstants.txtColorDark,
+                                color: ColorConstants.primaryWhite,
                                 size: 18,
                               )
                             ],
