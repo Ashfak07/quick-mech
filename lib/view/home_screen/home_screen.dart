@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
-import 'package:quickmech/utils/database/home_datas.dart';
+import 'package:quickmech/db/home_datas.dart';
 import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
 import 'package:quickmech/view/saved/saved_screen.dart';

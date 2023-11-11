@@ -27,9 +27,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => BookingPageController(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => HomeScreenProvider(),
-        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
