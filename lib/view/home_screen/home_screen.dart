@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quickmech/db/home_datas.dart';
+
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/db/home_datas.dart';
 import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
+import 'package:quickmech/view/saved/saved_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -36,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Categorylist _categorylist = Categorylist();
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
   bool _isClicked = false;
   int index = 0;
   PageController _pageController = PageController(initialPage: 0);
@@ -70,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Icon(
                     Icons.notifications_outlined,
-                    color: _isClicked == false ? Colors.white : Colors.black87,
+                    color: Colors.white,
                   )),
               SizedBox(
                 width: 40,
@@ -82,44 +85,53 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             title: Text(
               'QUICK MECH',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              style: GoogleFonts.orbitron(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
             ),
             backgroundColor: ColorConstants.bannerColor,
             expandedHeight: Mediaheight * .2,
             flexibleSpace: FlexibleSpaceBar(
-              background: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                      color: ColorConstants.bannerColor,
+              background: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Align(
+                    //     alignment: Alignment.topLeft,
+                    //     child: AnimatedTextKit(
+                    //       repeatForever: true,
+                    //       animatedTexts: [
+                    //         WavyAnimatedText(
+                    //           'GoodMorning...',
+                    //           textStyle: GoogleFonts.courgette(
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 15),
+                    //         ),
+                    //       ],
+                    //     )),
+                    SizedBox(
+                      height: Mediaheight * .08,
                     ),
-                  ),
-                  // SizedBox(
-                  //   height: Mediaheight * .04,
-                  // ),
-                  // Text('Good Morning'),
-                  Container(
-                    height: Mediaheight * .05,
-                    width: Mediawidth * .7,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
-                    child: TextFormField(
-                      textAlignVertical: TextAlignVertical.center,
-                      enableInteractiveSelection: true,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.search),
-                          hintText: 'Search'),
+                    Container(
+                      height: Mediaheight * .05,
+                      width: Mediawidth * .7,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      child: TextFormField(
+                        textAlignVertical: TextAlignVertical.center,
+                        enableInteractiveSelection: true,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(Icons.search),
+                            hintText: 'Search'),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -200,11 +212,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                     ),
                     Divider(),
-                    Text('Category',
-                        style: GoogleFonts.bebasNeue(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20)),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Category',
+                            style: GoogleFonts.josefinSans(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20)),
+                      ),
+                    ),
                     Container(
                         height: 120,
                         child: ListView.builder(
@@ -218,11 +236,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           color: ColorConstants.bannerColor,
-                                          gradient: LinearGradient(colors: [
-                                            Colors.white,
-                                            ColorConstants.bannerColor,
-                                            Colors.black.withOpacity(.9),
-                                          ], begin: Alignment.topLeft)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                              offset: Offset(9.0, 9), //(x,y)
+                                              blurRadius: 6.0,
+                                            )
+                                          ]),
                                       child: Column(
                                         children: [
                                           Padding(
@@ -245,6 +265,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )),
                                 ))),
                     Divider(),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Our partners',
+                            style: GoogleFonts.josefinSans(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20)),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -262,21 +293,63 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: 20,
                             itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: ColorConstants.bannerColor,
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                            colors: [
-                                              Colors.black.withOpacity(.9),
-                                              ColorConstants.bannerColor,
-                                              Colors.white,
-                                            ])),
-                                    child: Column(
-                                      children: [Icon(Icons.person)],
-                                    ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                              offset: Offset(4.0, 4), //(x,y)
+                                              blurRadius: 6.0,
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: ColorConstants.primaryWhite,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.asset(
+                                                  'assets/images/images (5).jpg'),
+                                            ),
+                                            Text('NAME'),
+                                            Text('RATING')
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            InkWell(
+                                                onTap: () {
+                                                  if (index % 2 == 0) {
+                                                    _isClicked = true;
+                                                  } else {
+                                                    _isClicked = false;
+                                                  }
+                                                  index = index + 1;
+                                                  setState(() {});
+                                                },
+                                                child: Icon(
+                                                  _isClicked == false
+                                                      ? Icons.favorite_outline
+                                                      : Icons.favorite,
+                                                  color: _isClicked == false
+                                                      ? ColorConstants
+                                                          .primaryWhite
+                                                      : Colors.red,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )),
                       ),
