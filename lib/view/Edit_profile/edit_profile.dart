@@ -35,14 +35,14 @@ class _edit_profileState extends State<edit_profile> {
                         right: -5,
                         child: CircleAvatar(
                           radius: 19,
-                          backgroundColor: ColorConstants.bgColorWhite,
+                          backgroundColor: ColorConstants.primaryWhite,
                           child: CircleAvatar(
                             radius: 15,
                             backgroundColor: ColorConstants.systemGrey,
                             child: Icon(
                               Icons.photo_camera,
                               size: 20,
-                              color: ColorConstants.bgColorDark,
+                              color: ColorConstants.primaryBlack,
                             ),
                           ),
                         )),
@@ -53,24 +53,24 @@ class _edit_profileState extends State<edit_profile> {
             SizedBox(
               height: 25,
             ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Change profile",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(Icons.edit)
-                ],
-              ),
-            ),
+            // Center(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Change profile",
+            //         style: TextStyle(
+            //             color: Colors.black,
+            //             fontWeight: FontWeight.bold,
+            //             fontSize: 18),
+            //       ),
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Icon(Icons.edit)
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 25,
             ),
