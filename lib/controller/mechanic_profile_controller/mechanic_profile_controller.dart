@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:quickmech/model/mechanic_model.dart';
+import 'package:quickmech/utils/database/mechanic_db.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MechanicProfileController with ChangeNotifier {
+  Position? currentLocation;
+  var error;
+  var distanceBetween;
   void callMechanic() async {
     if (!await launchUrl(Uri(scheme: 'tel', path: '7558095349'))) {
       throw ('Could not launch ${Uri(scheme: 'tel', path: '7558095349')}');
@@ -10,21 +15,21 @@ class MechanicProfileController with ChangeNotifier {
     notifyListeners();
   }
 
-  void launchWhatsapp({required number,required name}) async {
-    String message = 'Hi, I am $name. I need urgent roadside assistance. Please help me.';
+  void launchWhatsapp({required number, required name}) async {
+    String message =
+        'Hi, I am $name. I need urgent roadside assistance. Please help me.';
     String url = "whatsapp://send?phone=$number&text=$message";
-    if(!await launchUrl(Uri.parse(url))) {
-      throw('Can\'t open whatsapp');
+    if (!await launchUrl(Uri.parse(url))) {
+      throw ('Can\'t open whatsapp');
     }
     notifyListeners();
-
   }
 
   /// Determine the current position of the device.
   ///
   /// When the location services are not enabled or permissions
   /// are denied the `Future` will return an error.
-  Future<Position> _determinePosition() async {
+  determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -34,7 +39,7 @@ class MechanicProfileController with ChangeNotifier {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      return Future.error('Location services are disabled.');
+      error = Future.error('Location services are disabled.');
     }
 
     permission = await Geolocator.checkPermission();
@@ -46,19 +51,32 @@ class MechanicProfileController with ChangeNotifier {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        error = Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Future.error(
+      error = Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition();
+    currentLocation = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     notifyListeners();
   }
+
+  getDistanceBetween() async {
+    // distanceBetween = await Geolocator.distanceBetween(
+    //     mechanicList![0].currentLocation!.latitude,
+    //     mechanicList![0].currentLocation!.longitude,
+    //     currentLocation!.latitude,
+    //     currentLocation!.longitude);
+    print('Distance between - $distanceBetween');
+    notifyListeners();
+  }
+
+
 }

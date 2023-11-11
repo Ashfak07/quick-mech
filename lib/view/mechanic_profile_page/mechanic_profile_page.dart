@@ -3,6 +3,7 @@ import 'package:flutter_pannable_rating_bar/flutter_pannable_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
@@ -16,6 +17,17 @@ class MechanicProfile extends StatefulWidget {
 }
 
 class _MechanicProfileState extends State<MechanicProfile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<MechanicProfileController>(context, listen: false)
+        .determinePosition();
+          Provider.of<MechanicController>(context, listen: false)
+        .getMechanic();
+        Provider.of<MechanicProfileController>(context,listen: false).getDistanceBetween();
+    super.initState();
+  }
+
   double rating = 0.0;
 
   @override
@@ -45,12 +57,12 @@ class _MechanicProfileState extends State<MechanicProfile> {
                   color: const Color.fromARGB(181, 0, 0, 0),
                   child: ListTile(
                     title: Text(
-                      'Mechanic Name',
+                      Provider.of<MechanicController>(context).mechanicList[0].name,
                       style: GoogleFonts.robotoSlab(
                           color: ColorConstants.primaryWhite, fontSize: 18),
                     ),
                     subtitle: Text(
-                      '6 km away',
+                      Provider.of<MechanicProfileController>(context).distanceBetween ?? '',
                       style: TextStyle(
                           color: ColorConstants.systemGrey, fontSize: 12),
                     ),
@@ -67,7 +79,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '4.3',
+                                    Provider.of<MechanicController>(context).mechanicList[0].rating,
                                     style: TextStyle(
                                         color: ColorConstants.primaryWhite),
                                   ),
@@ -96,16 +108,17 @@ class _MechanicProfileState extends State<MechanicProfile> {
                             color: ColorConstants.bannerColor,
                           ),
                           title: Text(
-                            'Ernakulam,Kochi',
-                            style:
-                                TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                            Provider.of<MechanicController>(context).mechanicList[0].location,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                           trailing: Container(
                             width: MediaQuery.of(context).size.width * 0.25,
                             child: Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   child: Icon(
                                     Icons.share,
                                     size: 26,
@@ -113,7 +126,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   child: Icon(
                                     Icons.bookmark,
                                     size: 30,
@@ -165,7 +179,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     'Age',
                                     style: TextStyleConstants.heading5,
                                   ),
-                                  subtitle: Text('30')),
+                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].age)),
                             ),
                             // Lives in
                             Padding(
@@ -183,7 +197,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     'Lives In',
                                     style: TextStyleConstants.heading5,
                                   ),
-                                  subtitle: Text('Ernakulam, Kochi')),
+                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].location)),
                             ),
                             // Contact details
                             Padding(
@@ -203,7 +217,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     style: TextStyleConstants.heading5,
                                   ),
                                   subtitle: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         GestureDetector(
                                           onTap: () {
@@ -223,12 +238,14 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                               padding: const EdgeInsets.all(4),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: [
                                                   FaIcon(
                                                     FontAwesomeIcons.whatsapp,
                                                     size: 16,
-                                                    color: ColorConstants.primaryBlack,
+                                                    color: ColorConstants
+                                                        .primaryBlack,
                                                   ),
                                                   Text(
                                                     'WhatsApp',
@@ -256,12 +273,14 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                               padding: const EdgeInsets.all(4),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: [
                                                   FaIcon(
                                                     FontAwesomeIcons.phone,
                                                     size: 14,
-                                                    color: ColorConstants.primaryBlack,
+                                                    color: ColorConstants
+                                                        .primaryBlack,
                                                   ),
                                                   Text('Call Now',
                                                       style: TextStyle(
@@ -284,8 +303,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child:
-                            Text('Description', style: TextStyleConstants.heading3),
+                        child: Text('Description',
+                            style: TextStyleConstants.heading3),
                       ),
                     ],
                   ),
@@ -365,19 +384,21 @@ class _MechanicProfileState extends State<MechanicProfile> {
                               child: Text(
                             'Book',
                             style: TextStyle(
-                                color: ColorConstants.primaryWhite, fontSize: 16),
+                                color: ColorConstants.primaryWhite,
+                                fontSize: 16),
                           )),
                         )
                       ],
                     ),
                   ),
-                      
+
                   // Reviews
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Reviews', style: TextStyleConstants.heading3),
+                        child:
+                            Text('Reviews', style: TextStyleConstants.heading3),
                       ),
                     ],
                   ),
@@ -414,7 +435,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
                                   child: Text(
                                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                                     overflow: TextOverflow.ellipsis,
@@ -453,7 +475,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                   items: List.generate(
                                       5,
                                       (index) => RatingWidget(
-                                            selectedColor: ColorConstants.bannerColor,
+                                            selectedColor:
+                                                ColorConstants.bannerColor,
                                             unSelectedColor: Colors.grey,
                                             child: Icon(
                                               Icons.star,
@@ -472,11 +495,14 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                   child: Center(
                                     child: Container(
                                       height:
-                                          MediaQuery.of(context).size.height * 0.05,
-                                      width: MediaQuery.of(context).size.width * 0.9,
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9,
                                       decoration: BoxDecoration(
                                           color: ColorConstants.bannerColor,
-                                          borderRadius: BorderRadius.circular(10)),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: Center(
                                           child: Text(
                                         'Submit',
@@ -493,7 +519,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                       ),
                     ),
                   ),
-                      
+
                   SizedBox(
                     height: 50,
                   ),

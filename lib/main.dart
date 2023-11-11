@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +20,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MechanicProfileController(),),
-        ChangeNotifierProvider(create: (context) => BookingPageController(),)
+        ChangeNotifierProvider(
+          create: (context) => MechanicController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MechanicProfileController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BookingPageController(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -33,11 +39,7 @@ class MyApp extends StatelessWidget {
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
             useMaterial3: true),
-
       ),
     );
-
-
-
   }
 }
