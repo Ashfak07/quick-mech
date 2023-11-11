@@ -13,7 +13,8 @@ class database {
       'name': 'Saju',
       'location': 'Kozhikode, Mananchira',
       'age': '35',
-      'image': 'assets/images/images (5).jpg',
+      'image':
+          'https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg',
       'contact number': '9946353610',
       'whatsapp nbr': '8756372819',
       'description':
@@ -34,7 +35,8 @@ class database {
       'name': 'Kishan kumar',
       'location': 'Ernakulam, Aluva',
       'age': '40',
-      'image': 'assets/images/images (5).jpg',
+      'image':
+          'https://cdn1.vectorstock.com/i/1000x1000/23/65/man-avatar-icon-flat-vector-19152365.jpg',
       'contact number': '9590372956',
       'whatsapp nbr': '8974568329',
       'description':
