@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
@@ -8,8 +9,9 @@ import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profil
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
+
 import 'package:quickmech/view/splash_screen/splash_screen.dart';
-import 'package:quickmech/view/booking_page/booking_page.dart';
+
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -41,5 +44,6 @@ class MyApp extends StatelessWidget {
             useMaterial3: true),
       ),
     );
+
   }
 }
