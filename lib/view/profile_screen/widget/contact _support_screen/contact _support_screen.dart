@@ -22,7 +22,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: ColorConstants.bgColorWhite,
+                  color: ColorConstants.primaryWhite,
                   borderRadius: BorderRadius.circular(20)),
               height: 70,
               width: 200,
@@ -61,7 +61,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: ColorConstants.bgColorWhite,
+                  color: ColorConstants.primaryWhite,
                   borderRadius: BorderRadius.circular(20)),
               height: 70,
               width: 200,

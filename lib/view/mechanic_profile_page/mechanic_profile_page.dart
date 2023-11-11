@@ -47,7 +47,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                     title: Text(
                       'Mechanic Name',
                       style: GoogleFonts.robotoSlab(
-                          color: ColorConstants.txtColorDark, fontSize: 18),
+                          color: ColorConstants.primaryWhite, fontSize: 18),
                     ),
                     subtitle: Text(
                       '6 km away',
@@ -69,11 +69,11 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                   Text(
                                     '4.3',
                                     style: TextStyle(
-                                        color: ColorConstants.txtColorDark),
+                                        color: ColorConstants.primaryWhite),
                                   ),
                                   Icon(Icons.star,
                                       size: 14,
-                                      color: ColorConstants.txtColorDark)
+                                      color: ColorConstants.primaryWhite)
                                 ]),
                           )
                         ]),
@@ -140,7 +140,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     child: Center(
                                         child: Icon(
                                       Icons.category,
-                                      color: ColorConstants.txtColorDark,
+                                      color: ColorConstants.primaryWhite,
                                     )),
                                   ),
                                   title: Text(
@@ -158,7 +158,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     child: Center(
                                         child: Icon(
                                       Icons.man,
-                                      color: ColorConstants.txtColorDark,
+                                      color: ColorConstants.primaryWhite,
                                     )),
                                   ),
                                   title: Text(
@@ -176,7 +176,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     child: Center(
                                         child: Icon(
                                       Icons.house,
-                                      color: ColorConstants.txtColorDark,
+                                      color: ColorConstants.primaryWhite,
                                     )),
                                   ),
                                   title: Text(
@@ -195,7 +195,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     child: Center(
                                         child: Icon(
                                       Icons.phone,
-                                      color: ColorConstants.txtColorDark,
+                                      color: ColorConstants.primaryWhite,
                                     )),
                                   ),
                                   title: Text(
@@ -228,13 +228,13 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                                   FaIcon(
                                                     FontAwesomeIcons.whatsapp,
                                                     size: 16,
-                                                    color: ColorConstants.txtColorWhite,
+                                                    color: ColorConstants.primaryBlack,
                                                   ),
                                                   Text(
                                                     'WhatsApp',
                                                     style: TextStyle(
                                                         color: ColorConstants
-                                                            .txtColorWhite),
+                                                            .primaryBlack),
                                                   )
                                                 ],
                                               ),
@@ -261,12 +261,12 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                                   FaIcon(
                                                     FontAwesomeIcons.phone,
                                                     size: 14,
-                                                    color: ColorConstants.txtColorWhite,
+                                                    color: ColorConstants.primaryBlack,
                                                   ),
                                                   Text('Call Now',
                                                       style: TextStyle(
                                                           color: ColorConstants
-                                                              .txtColorWhite))
+                                                              .primaryBlack))
                                                 ],
                                               ),
                                             ),
@@ -339,7 +339,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                 padding: const EdgeInsets.all(4),
                                 child: Icon(
                                   Icons.chat,
-                                  color: ColorConstants.txtColorDark,
+                                  color: ColorConstants.primaryWhite,
                                   size: 20,
                                 ),
                               ),
@@ -348,7 +348,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                 child: Text(
                                   'Chat',
                                   style: TextStyle(
-                                      color: ColorConstants.txtColorDark,
+                                      color: ColorConstants.primaryWhite,
                                       fontSize: 16),
                                 ),
                               )
@@ -365,7 +365,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                               child: Text(
                             'Book',
                             style: TextStyle(
-                                color: ColorConstants.txtColorDark, fontSize: 16),
+                                color: ColorConstants.primaryWhite, fontSize: 16),
                           )),
                         )
                       ],
@@ -398,7 +398,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     child: Text(
                                       'Abhishek B Ambady',
                                       style: TextStyle(
-                                          color: ColorConstants.txtColorWhite,
+                                          color: ColorConstants.primaryBlack,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -481,7 +481,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                           child: Text(
                                         'Submit',
                                         style: TextStyle(
-                                            color: ColorConstants.txtColorDark),
+                                            color: ColorConstants.primaryWhite),
                                       )),
                                     ),
                                   ),
