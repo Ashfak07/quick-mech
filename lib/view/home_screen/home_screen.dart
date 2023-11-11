@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     //       ],
                     //     )),
                     SizedBox(
-                      height: Mediaheight * .09,
+                      height: Mediaheight * .08,
                     ),
                     Container(
                       height: Mediaheight * .05,
