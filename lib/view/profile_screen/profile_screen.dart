@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/Edit_profile/edit_profile.dart';
 import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/contact%20_support_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/settings_screen/settings_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
@@ -37,18 +38,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       right: -5,
                       child: CircleAvatar(
                         radius: 19,
-                        backgroundColor: ColorConstants.bgColorWhite,
+                        backgroundColor: ColorConstants.primaryWhite,
                         child: CircleAvatar(
                           radius: 15,
                           backgroundColor: ColorConstants.systemGrey,
                           child: InkWell(
                             onTap: () {
-                              //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => edit_profile(),));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => edit_profile(),
+                              ));
                             },
                             child: Icon(
                               Icons.edit,
                               size: 20,
-                              color: ColorConstants.bgColorDark,
+                              color: ColorConstants.primaryBlack,
                             ),
                           ),
                         ),

@@ -39,7 +39,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             ),
             Divider(
               thickness: 3,
-              color: ColorConstants.bgColorDark,
+              color: ColorConstants.primaryBlack,
             ),
             SizedBox(
               height: 10,
@@ -64,7 +64,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             ),
             Divider(
               thickness: 3,
-              color: ColorConstants.bgColorDark,
+              color: ColorConstants.primaryBlack,
             ),
             SizedBox(
               height: 10,
@@ -86,7 +86,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             ),
             Divider(
               thickness: 3,
-              color: ColorConstants.bgColorDark,
+              color: ColorConstants.primaryBlack,
             ),
             SizedBox(
               height: 10,

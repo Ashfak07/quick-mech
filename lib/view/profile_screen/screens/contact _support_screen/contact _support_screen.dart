@@ -24,7 +24,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
               elevation: 10,
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorConstants.bgColorWhite,
+                    color: ColorConstants.primaryWhite,
                     borderRadius: BorderRadius.circular(20)),
                 height: 70,
                 width: 200,
@@ -36,7 +36,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           backgroundColor: ColorConstants.bannerColor,
                           child: Icon(
                             Icons.call,
-                            color: ColorConstants.bgColorWhite,
+                            color: ColorConstants.primaryWhite,
                           )),
                       SizedBox(
                         width: 30,
@@ -71,7 +71,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
               elevation: 10,
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorConstants.bgColorWhite,
+                    color: ColorConstants.primaryWhite,
                     borderRadius: BorderRadius.circular(20)),
                 height: 70,
                 width: 200,
@@ -83,7 +83,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           backgroundColor: ColorConstants.bannerColor,
                           child: Icon(
                             Icons.email,
-                            color: ColorConstants.bgColorWhite,
+                            color: ColorConstants.primaryWhite,
                           )),
                       SizedBox(
                         width: 30,
