@@ -24,7 +24,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
         .determinePosition();
           Provider.of<MechanicController>(context, listen: false)
         .getMechanic();
-        Provider.of<MechanicProfileController>(context,listen: false).getDistanceBetween();
+        Provider.of<MechanicProfileController>(context,listen: false).getDistanceBetween(Provider.of<MechanicController>(context,listen: false).mechanicList[0]);
     super.initState();
   }
 
@@ -46,7 +46,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
-                            'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1699511437~exp=1699512037~hmac=0ae02ad49c3a84694770a5aee1867466e40f30f5f95b137a7e15e3159783d6b4'),
+                            'https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg'),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -57,7 +57,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                   color: const Color.fromARGB(181, 0, 0, 0),
                   child: ListTile(
                     title: Text(
-                      Provider.of<MechanicController>(context).mechanicList[0].name,
+                      Provider.of<MechanicController>(context).mechanicList[0].name ?? '',
                       style: GoogleFonts.robotoSlab(
                           color: ColorConstants.primaryWhite, fontSize: 18),
                     ),
@@ -79,7 +79,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    Provider.of<MechanicController>(context).mechanicList[0].rating,
+                                    Provider.of<MechanicController>(context).mechanicList[0].rating ?? '',
                                     style: TextStyle(
                                         color: ColorConstants.primaryWhite),
                                   ),
@@ -108,7 +108,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                             color: ColorConstants.bannerColor,
                           ),
                           title: Text(
-                            Provider.of<MechanicController>(context).mechanicList[0].location,
+                            Provider.of<MechanicController>(context).mechanicList[0].location ?? '',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500),
                           ),
@@ -179,7 +179,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     'Age',
                                     style: TextStyleConstants.heading5,
                                   ),
-                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].age)),
+                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].age ?? '')),
                             ),
                             // Lives in
                             Padding(
@@ -197,7 +197,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     'Lives In',
                                     style: TextStyleConstants.heading5,
                                   ),
-                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].location)),
+                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].location ?? '')),
                             ),
                             // Contact details
                             Padding(

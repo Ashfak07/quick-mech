@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:quickmech/model/mechanic_model.dart';
-import 'package:quickmech/utils/database/mechanic_db.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MechanicProfileController with ChangeNotifier {
@@ -68,13 +66,12 @@ class MechanicProfileController with ChangeNotifier {
     notifyListeners();
   }
 
-  getDistanceBetween() async {
-    // distanceBetween = await Geolocator.distanceBetween(
-    //     mechanicList![0].currentLocation!.latitude,
-    //     mechanicList![0].currentLocation!.longitude,
-    //     currentLocation!.latitude,
-    //     currentLocation!.longitude);
-    print('Distance between - $distanceBetween');
+  getDistanceBetween(mechanicDetails) async {
+    distanceBetween = await Geolocator.distanceBetween(
+        double.parse(mechanicDetails[0].currentLocation.latitude),
+        double.parse(mechanicDetails[0].currentLocation.longitude),
+        currentLocation!.latitude,
+        currentLocation!.longitude);
     notifyListeners();
   }
 
