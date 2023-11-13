@@ -51,8 +51,8 @@ class MechanicModel {
 }
 
 class CurrentLocation {
-    String? latitude;
-    String? longitude;
+    double? latitude;
+    double? longitude;
 
     CurrentLocation({
         this.latitude,
