@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:quickmech/utils/database/mechanic_db.dart';
 
 class database {
   static List category = [
@@ -66,4 +67,17 @@ class database {
   ];
   static List saved = [];
   static List history = [];
+}
+
+Item getById(int id) => Item(id, mechanic[id % mechanic.length].toString());
+
+Item getByPosition(int position) {
+  return getById(position);
+}
+
+class Item {
+  final int id;
+  final String name;
+
+  Item(this.id, this.name);
 }
