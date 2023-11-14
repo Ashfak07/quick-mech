@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 
-class UrgentBooking extends StatelessWidget {
-  const UrgentBooking({super.key});
+class BookingPage extends StatefulWidget {
+  const BookingPage({super.key});
+
+  @override
+  State<BookingPage> createState() => _BookingPageState();
+}
+
+class _BookingPageState extends State<BookingPage> {
+
+  bool sheduledbooking=false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +27,27 @@ class UrgentBooking extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20, left: 25),
               child: Row(
                 children: [
-                  Card(
-                    elevation: 10,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(13)),
-                      height: 50,
-                      width: 150,
-                      child: Center(
-                        child: Text(
-                          "Urgent Booking",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                  GestureDetector(onTap: () {
+                    setState(() {
+                      sheduledbooking=false;
+                    });
+                  },
+                    child: Card(
+                      elevation: 10,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(13)),
+                        height: 50,
+                        width: 150,
+                        child: Center(
+                          child: Text(
+                            "Instant Booking",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
                         ),
                       ),
                     ),
@@ -41,36 +55,44 @@ class UrgentBooking extends StatelessWidget {
                   SizedBox(
                     width: 25,
                   ),
-                  Card(
-                    elevation: 10,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(13)),
-                      height: 50,
-                      width: 150,
-                      child: Center(
-                        child: Text(
-                          "Sheduled Booking",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                  GestureDetector(onTap: () {
+                    setState(() {
+                      sheduledbooking=true;
+                    });
+                  },
+                    child: Card(
+                      elevation: 10,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(13)),
+                        height: 50,
+                        width: 150,
+                        child: Center(
+                          child: Text(
+                            "Scheduled Booking",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 10),
-              child: Text(
-                "Time Peroid",
-                style: TextStyleConstants.heading3,
-              ),
-            ),
-            Row(
+            ),sheduledbooking==true?
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 10),
+                  child: Text(
+                    "Time Peroid",
+                    style: TextStyleConstants.heading3,
+                  ),
+                ),
+                 Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -124,6 +146,9 @@ class UrgentBooking extends StatelessWidget {
                 ),
               ],
             ),
+              ],
+            ):Container(),
+           
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 10),
               child: Text(
