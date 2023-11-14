@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/db/home_datas.dart';
+import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
 import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
 import 'package:quickmech/view/saved/saved_screen.dart';
@@ -21,7 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeData _homeData = HomeData();
   @override
   void initState() {
+    Provider.of<MechanicController>(context, listen: false).getMechanic();
     super.initState();
+
     _timer = Timer.periodic(Duration(seconds: 4), (Timer timer) {
       if (CurrentPage < 3) {
         CurrentPage++;
@@ -230,39 +235,53 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: _categorylist.category.length,
                             itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      width: Mediawidth * .3,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: ColorConstants.bannerColor,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(9.0, 9), //(x,y)
-                                              blurRadius: 6.0,
-                                            )
-                                          ]),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Image.asset(
-                                              _categorylist
-                                                  .category[index].image,
-                                              fit: BoxFit.cover,
-                                              height: 50,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CategoryWiseWorkerscreen(
+                                                    categoryName: _categorylist
+                                                        .category[index]
+                                                        .category,
+                                                  )));
+                                    },
+                                    child: Container(
+                                        width: Mediawidth * .3,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: ColorConstants.bannerColor,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                offset: Offset(9.0, 9), //(x,y)
+                                                blurRadius: 6.0,
+                                              )
+                                            ]),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Image.asset(
+                                                _categorylist
+                                                    .category[index].image,
+                                                fit: BoxFit.cover,
+                                                height: 50,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            _categorylist
-                                                .category[index].category,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
+                                            Text(
+                                              _categorylist
+                                                  .category[index].category,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        )),
+                                  ),
                                 ))),
                     Divider(),
                     Align(
@@ -290,7 +309,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2),
                             scrollDirection: Axis.horizontal,
-                            itemCount: 20,
+                            itemCount: Provider.of<MechanicController>(context,
+                                    listen: false)
+                                .mechanicList
+                                .length,
                             itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Stack(
@@ -313,23 +335,50 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                  'assets/images/images (5).jpg'),
+                                              child: Image.network(
+                                                Provider.of<MechanicController>(
+                                                        context,
+                                                        listen: false)
+                                                    .mechanicList[index]
+                                                    .image
+                                                    .toString(),
+                                                height: 100,
+                                                width: double.infinity,
+                                              ),
                                             ),
-                                            Text('NAME'),
-                                            Text('RATING')
+                                            Text(
+                                                Provider.of<MechanicController>(
+                                                        context,
+                                                        listen: false)
+                                                    .mechanicList[index]
+                                                    .name
+                                                    .toString()),
+                                            Text(
+                                                Provider.of<MechanicController>(
+                                                        context,
+                                                        listen: false)
+                                                    .mechanicList[index]
+                                                    .rating
+                                                    .toString())
                                           ],
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: [
                                             InkWell(
                                                 onTap: () {
-                                                  if (index % 2 == 0) {
+                                                  index = 0;
+                                                  if (index ==
+                                                      Provider.of<MechanicController>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .mechanicList[
+                                                          index]) {
                                                     _isClicked = true;
                                                   } else {
                                                     _isClicked = false;
@@ -343,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       : Icons.favorite,
                                                   color: _isClicked == false
                                                       ? ColorConstants
-                                                          .primaryWhite
+                                                          .primaryBlack
                                                       : Colors.red,
                                                 )),
                                           ],
