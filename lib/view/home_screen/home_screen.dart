@@ -8,6 +8,7 @@ import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dar
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/db/home_datas.dart';
+import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
 import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
 import 'package:quickmech/view/saved/saved_screen.dart';
@@ -234,39 +235,53 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: _categorylist.category.length,
                             itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      width: Mediawidth * .3,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: ColorConstants.bannerColor,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(9.0, 9), //(x,y)
-                                              blurRadius: 6.0,
-                                            )
-                                          ]),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Image.asset(
-                                              _categorylist
-                                                  .category[index].image,
-                                              fit: BoxFit.cover,
-                                              height: 50,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CategoryWiseWorkerscreen(
+                                                    categoryName: _categorylist
+                                                        .category[index]
+                                                        .category,
+                                                  )));
+                                    },
+                                    child: Container(
+                                        width: Mediawidth * .3,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: ColorConstants.bannerColor,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                offset: Offset(9.0, 9), //(x,y)
+                                                blurRadius: 6.0,
+                                              )
+                                            ]),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Image.asset(
+                                                _categorylist
+                                                    .category[index].image,
+                                                fit: BoxFit.cover,
+                                                height: 50,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            _categorylist
-                                                .category[index].category,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
+                                            Text(
+                                              _categorylist
+                                                  .category[index].category,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        )),
+                                  ),
                                 ))),
                     Divider(),
                     Align(
