@@ -26,7 +26,6 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 decoration: BoxDecoration(
                     color: ColorConstants.primaryWhite,
                     borderRadius: BorderRadius.circular(20)),
-                height: 70,
                 width: 200,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -73,7 +72,6 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 decoration: BoxDecoration(
                     color: ColorConstants.primaryWhite,
                     borderRadius: BorderRadius.circular(20)),
-                height: 70,
                 width: 200,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -100,12 +98,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                             height: 5,
                           ),
                           Text(
-                            'hi@gmial.com',
+                            'quickmech@gmial.com',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           )
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
