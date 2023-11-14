@@ -14,6 +14,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.bannerColor,
+        centerTitle: true,
         title: Text('ContactSupport'),
       ),
       body: Padding(
