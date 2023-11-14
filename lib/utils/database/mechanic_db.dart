@@ -2,7 +2,7 @@ List<Map<String, dynamic>> mechanic = [
     {
       "name": "Saju",
       "location": "Edapally, Ernakulam",
-      "current_location": {"latitude": "10.0316", "longitude": "76.3034"},
+      "current_location": {"latitude": 10.0316, "longitude": 76.3034},
       "age": "35",
       "image":
           "https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg",
@@ -25,7 +25,7 @@ List<Map<String, dynamic>> mechanic = [
     {
       "name": "Kishan kumar",
       "location": "Aluva, Ernakulam",
-      "current_location": {"latitude": "10.10764", "longitude": "76.35158"},
+      "current_location": {"latitude": 10.10764, "longitude": 76.35158},
       "age": "40",
       "image":
           "https://cdn1.vectorstock.com/i/1000x1000/23/65/man-avatar-icon-flat-vector-19152365.jpg",
