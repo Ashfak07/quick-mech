@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
+import 'package:quickmech/view/profile_screen/screens/about_us_screen/about_us_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/contact%20_support_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/settings_screen/settings_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
@@ -161,7 +162,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AboutUsScreen(),
+                      ));
+                    },
                     icon: Icon(
                       Icons.arrow_forward_ios_sharp,
                     ),
