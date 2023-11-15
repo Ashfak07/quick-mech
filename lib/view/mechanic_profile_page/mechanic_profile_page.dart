@@ -8,6 +8,7 @@ import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profil
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
+import 'package:quickmech/view/booking_page/booking_page.dart';
 
 class MechanicProfile extends StatefulWidget {
   const MechanicProfile({super.key});
@@ -374,19 +375,24 @@ class _MechanicProfileState extends State<MechanicProfile> {
                             ],
                           ),
                         ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          decoration: BoxDecoration(
-                              color: ColorConstants.bannerColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                              child: Text(
-                            'Book',
-                            style: TextStyle(
-                                color: ColorConstants.primaryWhite,
-                                fontSize: 16),
-                          )),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UrgentBooking(),));
+                          },
+                          child: Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            decoration: BoxDecoration(
+                                color: ColorConstants.bannerColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                                child: Text(
+                              'Book',
+                              style: TextStyle(
+                                  color: ColorConstants.primaryWhite,
+                                  fontSize: 16),
+                            )),
+                          ),
                         )
                       ],
                     ),
