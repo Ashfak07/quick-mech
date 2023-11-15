@@ -10,6 +10,7 @@ import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
 
 import 'package:quickmech/view/intro_screen/intro_screen.dart';
+import 'package:quickmech/view/offer_screen/offers.dart';
 import 'package:quickmech/view/splash_screen/splash_screen.dart';
 
 void main(List<String> args) {
@@ -44,7 +45,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+
         home: SplashScreen(),
+
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
