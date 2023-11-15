@@ -7,11 +7,11 @@ import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dar
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/db/home_datas.dart';
-import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
 import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/home_screen/widgets/worker_profile.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
+import 'package:quickmech/view/notification_screen.dart/notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -75,6 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     // }
                     // index = index + 1;
                     // setState(() {});
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationScreen()));
                   },
                   child: Icon(
                     Icons.notifications_outlined,

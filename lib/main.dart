@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: IntroScreen(),
+        home: SplashScreen(),
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),

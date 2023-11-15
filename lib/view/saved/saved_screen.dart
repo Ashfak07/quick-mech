@@ -39,7 +39,7 @@ class CustomFavlist extends StatelessWidget {
     return ListView.builder(
       itemCount: favoiuritepage.favitems.length,
       itemBuilder: (context, index) => ListTile(
-        title: Text(favoiuritepage.favitems[index].name),
+        title: Text(favoiuritepage.favitems[index].name.toString()),
         // leading: Container(
         //   width: 50,
         //   height: 50,
