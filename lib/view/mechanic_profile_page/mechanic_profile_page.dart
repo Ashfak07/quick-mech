@@ -8,6 +8,7 @@ import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profil
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
+import 'package:quickmech/view/booking_page/booking_page.dart';
 
 class MechanicProfile extends StatefulWidget {
   const MechanicProfile({super.key});
@@ -22,9 +23,11 @@ class _MechanicProfileState extends State<MechanicProfile> {
     // TODO: implement initState
     Provider.of<MechanicProfileController>(context, listen: false)
         .determinePosition();
-          Provider.of<MechanicController>(context, listen: false)
-        .getMechanic();
-        Provider.of<MechanicProfileController>(context,listen: false).getDistanceBetween(Provider.of<MechanicController>(context,listen: false).mechanicList[0]);
+    Provider.of<MechanicController>(context, listen: false).getMechanic();
+    Provider.of<MechanicProfileController>(context, listen: false)
+        .getDistanceBetween(
+            Provider.of<MechanicController>(context, listen: false)
+                .mechanicList[0]);
     super.initState();
   }
 
@@ -57,12 +60,17 @@ class _MechanicProfileState extends State<MechanicProfile> {
                   color: const Color.fromARGB(181, 0, 0, 0),
                   child: ListTile(
                     title: Text(
-                      Provider.of<MechanicController>(context).mechanicList[0].name ?? '',
+                      Provider.of<MechanicController>(context)
+                              .mechanicList[0]
+                              .name ??
+                          '',
                       style: GoogleFonts.robotoSlab(
                           color: ColorConstants.primaryWhite, fontSize: 18),
                     ),
                     subtitle: Text(
-                      Provider.of<MechanicProfileController>(context).distanceBetween ?? '',
+                      Provider.of<MechanicProfileController>(context)
+                              .distanceBetween ??
+                          '',
                       style: TextStyle(
                           color: ColorConstants.systemGrey, fontSize: 12),
                     ),
@@ -79,7 +87,10 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    Provider.of<MechanicController>(context).mechanicList[0].rating ?? '',
+                                    Provider.of<MechanicController>(context)
+                                            .mechanicList[0]
+                                            .rating ??
+                                        '',
                                     style: TextStyle(
                                         color: ColorConstants.primaryWhite),
                                   ),
@@ -108,7 +119,10 @@ class _MechanicProfileState extends State<MechanicProfile> {
                             color: ColorConstants.bannerColor,
                           ),
                           title: Text(
-                            Provider.of<MechanicController>(context).mechanicList[0].location ?? '',
+                            Provider.of<MechanicController>(context)
+                                    .mechanicList[0]
+                                    .location ??
+                                '',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500),
                           ),
@@ -179,7 +193,11 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     'Age',
                                     style: TextStyleConstants.heading5,
                                   ),
-                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].age ?? '')),
+                                  subtitle: Text(
+                                      Provider.of<MechanicController>(context)
+                                              .mechanicList[0]
+                                              .age ??
+                                          '')),
                             ),
                             // Lives in
                             Padding(
@@ -197,7 +215,11 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                     'Lives In',
                                     style: TextStyleConstants.heading5,
                                   ),
-                                  subtitle: Text(Provider.of<MechanicController>(context).mechanicList[0].location ?? '')),
+                                  subtitle: Text(
+                                      Provider.of<MechanicController>(context)
+                                              .mechanicList[0]
+                                              .location ??
+                                          '')),
                             ),
                             // Contact details
                             Padding(
@@ -374,19 +396,27 @@ class _MechanicProfileState extends State<MechanicProfile> {
                             ],
                           ),
                         ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          decoration: BoxDecoration(
-                              color: ColorConstants.bannerColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                              child: Text(
-                            'Book',
-                            style: TextStyle(
-                                color: ColorConstants.primaryWhite,
-                                fontSize: 16),
-                          )),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookingPage()));
+                          },
+                          child: Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            decoration: BoxDecoration(
+                                color: ColorConstants.bannerColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                                child: Text(
+                              'Book',
+                              style: TextStyle(
+                                  color: ColorConstants.primaryWhite,
+                                  fontSize: 16),
+                            )),
+                          ),
                         )
                       ],
                     ),
