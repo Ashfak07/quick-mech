@@ -16,7 +16,10 @@ class IntroScreen2 extends StatelessWidget {
       child: Center(
         child: AnimatedTextKit(
           animatedTexts: [
-        WavyAnimatedText('This app helps you to find a mechanic near your location ',textStyle: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.bold)),
+        WavyAnimatedText("This app helps you to find \n mechanic near your location",
+        textStyle: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.bold,),
+        ),
+       
         
           ],
           isRepeatingAnimation: true,
