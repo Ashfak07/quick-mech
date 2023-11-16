@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
 
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorConstants.bgColorWhite,
+        backgroundColor: ColorConstants.primaryWhite,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,17 +33,18 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
                 height: 100,
                 width: 200,
-                color: Colors.amber,
               ),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
-              "quick mech",
-              style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20),
-            )
+              'QUICK MECH',
+              style: GoogleFonts.orbitron(
+                  color: ColorConstants.bannerColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
           ],
         ));
   }

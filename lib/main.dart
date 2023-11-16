@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/controller/fav_controller/fav_controller.dart';
+import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
+import 'package:quickmech/utils/color_constants.dart';
+import 'package:provider/provider.dart';
+import 'package:quickmech/controller/booking_page_controller/booking_page_controller.dart';
+import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
+import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 import 'package:quickmech/view/splash_screen/splash_screen.dart';
 
 void main(List<String> args) {
@@ -10,6 +17,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const SplashScreen());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => MechanicController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MechanicProfileController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BookingPageController(),
+        ),
+        Provider(create: (context) => FavouriteModel()),
+        ChangeNotifierProxyProvider<FavouriteModel, FavouriterController>(
+            create: (context) => FavouriterController(),
+            update: ((context, CustomFavlist, favoiuritepage) {
+              if (favoiuritepage == null)
+                throw ArgumentError.notNull('favoiuritepage');
+              favoiuritepage.favouritelist = CustomFavlist;
+              return favoiuritepage;
+            }))
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+        theme: ThemeData(
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
+            useMaterial3: true),
+      ),
+    );
   }
 }

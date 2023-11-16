@@ -20,7 +20,7 @@ version: 1.0.0+1
 
 environment:
 
-  sdk: '>=3.1.5 <4.0.0'
+  sdk: '>=3.1.0 <4.0.0'
 
 
 
@@ -44,6 +44,9 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_pannable_rating_bar: ^2.7.2+1
   font_awesome_flutter: ^10.6.0
+  url_launcher: ^6.2.1
+  geolocator: ^10.1.0
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +73,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/images (5).jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

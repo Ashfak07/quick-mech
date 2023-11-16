@@ -35,13 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 150, vertical: 42),
-                  child: Text(
-                    'LOGIN',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
                 ),
                 height: 110,
                 decoration: BoxDecoration(
@@ -71,6 +64,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Text(
+                              'LOGIN',
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorConstants.bannerColor),
+                            ),
                             SizedBox(
                               height: 80,
                             ),
@@ -185,18 +185,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // SizedBox(height: 235),
-              Container(
-                height: 190,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(80),
+              Column(
+                children: [
+                  Align(
+                    child: Container(
+                      height: 190,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(80),
+                          ),
+                          color: ColorConstants.bannerColor),
+                      // child: Image.asset(
+                      //   'assets/images/shopping.png',
+                      //   fit: BoxFit.cover,
+                      // ),
                     ),
-                    color: ColorConstants.bannerColor),
-                // child: Image.asset(
-                //   'assets/images/shopping.png',
-                //   fit: BoxFit.cover,
-                // ),
+                  ),
+                ],
               ),
             ],
           ),
