@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:quickmech/controller/booking_page_controller/booking_page_controller.dart';
 import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
 import 'package:quickmech/utils/database/database_for%20_favourite.dart';
+import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 
 
 void main(List<String> args) {
