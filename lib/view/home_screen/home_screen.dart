@@ -316,28 +316,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 20)),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MechanicProfile()));
-                        },
-                        child: Container(
-                          height: Mediaheight * .4,
-                          child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: Provider.of<MechanicController>(
+                      Container(
+                        height: Mediaheight * .4,
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: Provider.of<MechanicController>(context,
+                                    listen: false)
+                                .mechanicList
+                                .length,
+                            itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
                                       context,
-                                      listen: false)
-                                  .mechanicList
-                                  .length,
-                              itemBuilder: (context, index) =>
-                                  CustomWorkerProfileContainer(index: index)),
-                        ),
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MechanicProfile(index: index),
+                                      ));
+                                },
+                                child: CustomWorkerProfileContainer(
+                                    index: index))),
                       ),
                       // SizedBox(
                       //   height: Mediaheight * .1,

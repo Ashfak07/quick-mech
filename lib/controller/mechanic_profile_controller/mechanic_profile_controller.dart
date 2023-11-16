@@ -6,6 +6,8 @@ class MechanicProfileController with ChangeNotifier {
   Position? currentLocation;
   var error;
   var distanceBetween;
+  var distanceInKm;
+  var roundDistanceInKM;
   void callMechanic() async {
     if (!await launchUrl(Uri(scheme: 'tel', path: '7558095349'))) {
       throw ('Could not launch ${Uri(scheme: 'tel', path: '7558095349')}');
@@ -63,17 +65,19 @@ class MechanicProfileController with ChangeNotifier {
     // continue accessing the position of the device.
     currentLocation = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+       print(currentLocation!.latitude);
+       print(currentLocation!.longitude);
     notifyListeners();
   }
 
   getDistanceBetween(mechanicDetails) async {
     distanceBetween = await Geolocator.distanceBetween(
-        double.parse(mechanicDetails[0].currentLocation.latitude),
-        double.parse(mechanicDetails[0].currentLocation.longitude),
+        mechanicDetails.currentLocation.latitude,
+        mechanicDetails.currentLocation.longitude,
         currentLocation!.latitude,
         currentLocation!.longitude);
+    distanceInKm = await distanceBetween / 1000;
+    roundDistanceInKM = await double.parse((distanceInKm).toStringAsFixed(2));
     notifyListeners();
   }
-
-
 }
