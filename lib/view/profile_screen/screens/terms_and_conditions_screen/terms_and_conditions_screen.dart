@@ -23,9 +23,16 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            Text(
-              'SERVICES',
-              style: TextStyleConstants.heading3,
+            Container(
+              decoration: BoxDecoration(
+                  color: ColorConstants.bannerColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: Center(
+                child: Text(
+                  'SERVICES',
+                  style: TextStyleConstants.heading3,
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -36,18 +43,18 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(
-              height: 10,
+              height: 50,
             ),
-            Divider(
-              thickness: 3,
-              color: ColorConstants.primaryBlack,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'ELIGIBILITY',
-              style: TextStyleConstants.heading3,
+            Container(
+              decoration: BoxDecoration(
+                  color: ColorConstants.bannerColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: Center(
+                child: Text(
+                  'ELIGIBILITY',
+                  style: TextStyleConstants.heading3,
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -61,18 +68,18 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(
-              height: 10,
+              height: 50,
             ),
-            Divider(
-              thickness: 3,
-              color: ColorConstants.primaryBlack,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'TERMINATION',
-              style: TextStyleConstants.heading3,
+            Container(
+              decoration: BoxDecoration(
+                  color: ColorConstants.bannerColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: Center(
+                child: Text(
+                  'TERMINATION',
+                  style: TextStyleConstants.heading3,
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -83,18 +90,18 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(
-              height: 10,
+              height: 50,
             ),
-            Divider(
-              thickness: 3,
-              color: ColorConstants.primaryBlack,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'LICENSE',
-              style: TextStyleConstants.heading3,
+            Container(
+              decoration: BoxDecoration(
+                  color: ColorConstants.bannerColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: Center(
+                child: Text(
+                  'LICENSE',
+                  style: TextStyleConstants.heading3,
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
