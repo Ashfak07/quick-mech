@@ -397,11 +397,16 @@ class _MechanicProfileState extends State<MechanicProfile> {
                           ),
                         ),
                         GestureDetector(
+
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UrgentBooking(),));
+
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => BookingPage()));
+
                           },
                           child: Container(
                             height: 50,
