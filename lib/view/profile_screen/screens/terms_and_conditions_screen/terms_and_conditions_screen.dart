@@ -15,6 +15,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Terms And Conditions'),
         backgroundColor: ColorConstants.bannerColor,
       ),
