@@ -38,21 +38,19 @@ class CustomFavlist extends StatelessWidget {
     var favoiuritepage = context.watch<FavouriterController>();
     return ListView.builder(
       itemCount: favoiuritepage.favitems.length,
-      itemBuilder: (context, index) => ListTile(
-        title: Text(favoiuritepage.favitems[index].name.toString()),
-        // leading: Container(
-        //   width: 50,
-        //   height: 50,
-        //   child: Image.network(
-        //       Provider.of<MechanicController>(context, listen: false)
-        //           .mechanicList[index]
-        //           .image
-        //           .toString()),
-        // ),
-        // subtitle: Text(Provider.of<MechanicController>(context, listen: false)
-        //     .mechanicList[index]
-        //     .rating
-        //     .toString()),
+      itemBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Card(
+          child: ListTile(
+            title: Text(favoiuritepage.favitems[index].name.toString()),
+            leading: Container(
+              width: 50,
+              height: 50,
+              child: Image.network(favoiuritepage.favitems[index].image),
+            ),
+            subtitle: Text(favoiuritepage.favitems[index].ratting),
+          ),
+        ),
       ),
     );
   }

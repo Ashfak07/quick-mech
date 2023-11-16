@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quickmech/controller/fav_controller/fav_controller.dart';
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var favoiuritepage = context.watch<FavouriterController>();
     var Mediaheight = MediaQuery.sizeOf(context).height;
     var Mediawidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
@@ -188,15 +190,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemBuilder: (context, index) {
                                       return Container(
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(),
-                                              color: ColorConstants.bannerColor
-                                              // gradient: LinearGradient(colors: [
-                                              //   Colors.black.withOpacity(.6),
-                                              //   Colors.black.withOpacity(.3)
-                                              // ]),
-                                              ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color:
+                                                    ColorConstants.bannerColor),
+
+                                            // gradient: LinearGradient(colors: [
+                                            //   Colors.black.withOpacity(.6),
+                                            //   Colors.black.withOpacity(.3)
+                                            // ]),
+                                          ),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -270,7 +274,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              color: ColorConstants.bannerColor,
+                                              border: Border.all(
+                                                  color: ColorConstants
+                                                      .bannerColor),
+                                              color:
+                                                  ColorConstants.primaryWhite,
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Colors.grey,
@@ -287,6 +295,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Image.asset(
                                                   _categorylist
                                                       .category[index].image,
+                                                  color: const Color.fromARGB(
+                                                      255, 110, 106, 106),
                                                   fit: BoxFit.cover,
                                                   height: 50,
                                                 ),
@@ -295,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 _categorylist
                                                     .category[index].category,
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
@@ -321,20 +331,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MechanicProfile()));
+                                  builder: (context) => MechanicProfile(
+                                        index: index,
+                                      )));
                         },
                         child: Container(
-                          height: Mediaheight * .4,
+                          height: Mediaheight * .2,
                           child: GridView.builder(
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
+                                      crossAxisCount: 1),
                               scrollDirection: Axis.horizontal,
-                              itemCount: Provider.of<MechanicController>(
-                                      context,
-                                      listen: false)
-                                  .mechanicList
-                                  .length,
+                              itemCount: 4,
                               itemBuilder: (context, index) =>
                                   CustomWorkerProfileContainer(index: index)),
                         ),
