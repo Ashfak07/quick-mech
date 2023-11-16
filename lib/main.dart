@@ -5,6 +5,7 @@ import 'package:quickmech/utils/color_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:quickmech/controller/booking_page_controller/booking_page_controller.dart';
 import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
+import 'package:quickmech/view/booking_page/booking_page.dart';
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: offerscreen(),
+        home: SplashScreen(),
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
