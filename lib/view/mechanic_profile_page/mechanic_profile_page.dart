@@ -11,8 +11,8 @@ import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/booking_page/booking_page.dart';
 
 class MechanicProfile extends StatefulWidget {
-  const MechanicProfile({super.key});
-
+  const MechanicProfile({super.key, required this.index});
+  final int index;
   @override
   State<MechanicProfile> createState() => _MechanicProfileState();
 }
