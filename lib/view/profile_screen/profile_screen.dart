@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
@@ -8,7 +10,8 @@ import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, this.index});
+  final index;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -65,10 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'John',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              Text('Hi'),
               SizedBox(
                 height: 20,
               ),
