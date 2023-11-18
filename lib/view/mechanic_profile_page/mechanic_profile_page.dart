@@ -460,10 +460,13 @@ class _MechanicProfileState extends State<MechanicProfile> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  'No reviews yet. Be the first one to write for ${Provider.of<MechanicController>(context).mechanicList[widget.index].name}',
-                                  style: TextStyle(
-                                      color: ColorConstants.primaryBlack),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                    'No reviews yet. Be the first one to write for ${Provider.of<MechanicController>(context).mechanicList[widget.index].name}',
+                                    style: TextStyle(
+                                        color: ColorConstants.primaryBlack),
+                                  ),
                                 )
                               ],
                             ),
@@ -481,7 +484,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                 elevation: 10,
                                 child: Container(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.2,
+                                      MediaQuery.of(context).size.height * 0.25,
                                   width: double.infinity,
                                   child: Column(
                                       crossAxisAlignment:
@@ -553,7 +556,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                                       .content ??
                                                   '',
                                               overflow: TextOverflow.ellipsis,
-                                              maxLines: 5,
+                                              maxLines: 4,
                                             ),
                                           ),
                                         ),
