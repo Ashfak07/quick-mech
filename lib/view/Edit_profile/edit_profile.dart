@@ -1,4 +1,9 @@
+import 'dart:ffi';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:quickmech/utils/color_constants.dart';
 
 class edit_profile extends StatefulWidget {
@@ -11,6 +16,8 @@ class edit_profile extends StatefulWidget {
 class _edit_profileState extends State<edit_profile> {
   final _formkey = GlobalKey<FormState>();
 
+  Uint8List? _image;
+  File? selectedImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +30,27 @@ class _edit_profileState extends State<edit_profile> {
                 padding: const EdgeInsets.only(top: 50),
                 child: Stack(
                   children: [
-                    Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
+                    _image != null
+                        ? Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: MemoryImage(_image!),
+                                    fit: BoxFit.cover),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                          )
+                        : Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        "https://th.bing.com/th/id/OIP.ok20ZEluhnlQQzWG26XEnwHaHa?pid=ImgDet&rs=1"),
+                                    fit: BoxFit.cover),
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(20))),
                     Positioned(
                         bottom: -5,
                         right: -5,
@@ -39,10 +60,15 @@ class _edit_profileState extends State<edit_profile> {
                           child: CircleAvatar(
                             radius: 15,
                             backgroundColor: ColorConstants.systemGrey,
-                            child: Icon(
-                              Icons.photo_camera,
-                              size: 20,
-                              color: ColorConstants.primaryBlack,
+                            child: InkWell(
+                              onTap: () {
+                                showImagePickerOption(context);
+                              },
+                              child: Icon(
+                                Icons.photo_camera,
+                                size: 20,
+                                color: ColorConstants.primaryBlack,
+                              ),
                             ),
                           ),
                         )),
@@ -53,24 +79,6 @@ class _edit_profileState extends State<edit_profile> {
             SizedBox(
               height: 25,
             ),
-            // Center(
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text(
-            //         "Change profile",
-            //         style: TextStyle(
-            //             color: Colors.black,
-            //             fontWeight: FontWeight.bold,
-            //             fontSize: 18),
-            //       ),
-            //       SizedBox(
-            //         width: 10,
-            //       ),
-            //       Icon(Icons.edit)
-            //     ],
-            //   ),
-            // ),
             SizedBox(
               height: 25,
             ),
@@ -90,10 +98,6 @@ class _edit_profileState extends State<edit_profile> {
                 },
               ),
             ),
-
-//             Radio(value: true, groupValue: true, onChanged: (v){
-// //
-//             }),
             SizedBox(
               height: 10,
             ),
@@ -136,7 +140,7 @@ class _edit_profileState extends State<edit_profile> {
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 110, vertical: 5),
               child: InkWell(
                 onTap: () {
                   if (_formkey.currentState!.validate()) {
@@ -164,5 +168,78 @@ class _edit_profileState extends State<edit_profile> {
         ),
       ),
     );
+  }
+
+  void showImagePickerOption(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 9,
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                      onTap: () {
+                        _pickImageFromCamera();
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              size: 30,
+                            ),
+                            Text("Camera")
+                          ],
+                        ),
+                      )),
+                ),
+                Expanded(
+                  child: InkWell(
+                      onTap: () {
+                        _pickImageFromGallery();
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image,
+                              size: 30,
+                            ),
+                            Text("Gallery")
+                          ],
+                        ),
+                      )),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Future _pickImageFromGallery() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
+  }
+
+  Future _pickImageFromCamera() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
   }
 }
