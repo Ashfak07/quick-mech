@@ -8,7 +8,7 @@ import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 class CustomWorkerProfileContainer extends StatelessWidget {
   const CustomWorkerProfileContainer({super.key, required this.index});
 
-  final bool _isClicked = false;
+  // final bool _isClicked = false;
 
   final int index;
 
@@ -31,22 +31,25 @@ class CustomWorkerProfileContainer extends StatelessWidget {
                   )
                 ],
                 borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: ColorConstants.bannerColor),
                 color: ColorConstants.primaryWhite,
               ),
               child: Column(
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(item.image
-                        // Provider.of<MechanicController>(context, listen: false)
-                        //     .mechanicList[index]
-                        //     .image
-                        //     .toString(),
-                        // height: 100,
-                        // width: double.infinity,
-                        ),
+                    child: Image.network(
+                      item.image, height: 90, width: double.infinity,
+                      // Provider.of<MechanicController>(context, listen: false)
+                      //     .mechanicList[index]
+                      //     .image
+                      //     .toString(),
+                      // height: 100,
+                      // width: double.infinity,
+                    ),
                   ),
                   Text(item.name),
+                  Text(item.ratting)
                 ],
               ),
             ),

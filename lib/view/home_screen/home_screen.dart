@@ -3,15 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quickmech/controller/fav_controller/fav_controller.dart';
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/db/home_datas.dart';
-import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
 import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/home_screen/widgets/worker_profile.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
+import 'package:quickmech/view/notification_screen.dart/notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var favoiuritepage = context.watch<FavouriterController>();
     var Mediaheight = MediaQuery.sizeOf(context).height;
     var Mediawidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
@@ -75,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     // }
                     // index = index + 1;
                     // setState(() {});
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationScreen()));
                   },
                   child: Icon(
                     Icons.notifications_outlined,
@@ -184,15 +190,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemBuilder: (context, index) {
                                       return Container(
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(),
-                                              color: ColorConstants.bannerColor
-                                              // gradient: LinearGradient(colors: [
-                                              //   Colors.black.withOpacity(.6),
-                                              //   Colors.black.withOpacity(.3)
-                                              // ]),
-                                              ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color:
+                                                    ColorConstants.bannerColor),
+
+                                            // gradient: LinearGradient(colors: [
+                                            //   Colors.black.withOpacity(.6),
+                                            //   Colors.black.withOpacity(.3)
+                                            // ]),
+                                          ),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -266,7 +274,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              color: ColorConstants.bannerColor,
+                                              border: Border.all(
+                                                  color: ColorConstants
+                                                      .bannerColor),
+                                              color:
+                                                  ColorConstants.primaryWhite,
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Colors.grey,
@@ -283,6 +295,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Image.asset(
                                                   _categorylist
                                                       .category[index].image,
+                                                  color: const Color.fromARGB(
+                                                      255, 110, 106, 106),
                                                   fit: BoxFit.cover,
                                                   height: 50,
                                                 ),
@@ -291,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 _categorylist
                                                     .category[index].category,
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
@@ -312,28 +326,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 20)),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MechanicProfile()));
-                        },
-                        child: Container(
-                          height: Mediaheight * .4,
-                          child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: Provider.of<MechanicController>(
+                      Container(
+                        height: Mediaheight * .4,
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: Provider.of<MechanicController>(context,
+                                    listen: false)
+                                .mechanicList
+                                .length,
+                            itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
                                       context,
-                                      listen: false)
-                                  .mechanicList
-                                  .length,
-                              itemBuilder: (context, index) =>
-                                  CustomWorkerProfileContainer(index: index)),
-                        ),
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MechanicProfile(index: index),
+                                      ));
+                                },
+                                child: CustomWorkerProfileContainer(
+                                    index: index))),
                       ),
                       // SizedBox(
                       //   height: Mediaheight * .1,
