@@ -10,6 +10,5 @@ class MechanicController with ChangeNotifier {
       return MechanicModel.fromJson(e);
     }).toList();
     notifyListeners();
-    print(mechanicList);
   }
 }

@@ -2,6 +2,7 @@ class MechanicModel {
     String? name;
     String? location;
     CurrentLocation? currentLocation;
+    String? status;
     String? age;
     String? image;
     String? contactNumber;
@@ -14,6 +15,7 @@ class MechanicModel {
         this.name,
         this.location,
         this.currentLocation,
+        this.status,
         this.age,
         this.image,
         this.contactNumber,
@@ -27,6 +29,7 @@ class MechanicModel {
         name: json["name"],
         location: json["location"],
         currentLocation: json["current_location"] == null ? null : CurrentLocation.fromJson(json["current_location"]),
+        status: json["status"],
         age: json["age"],
         image: json["image"],
         contactNumber: json["contact number"],
@@ -40,6 +43,7 @@ class MechanicModel {
         "name": name,
         "location": location,
         "current_location": currentLocation?.toJson(),
+        "status": status,
         "age": age,
         "image": image,
         "contact number": contactNumber,
@@ -60,8 +64,8 @@ class CurrentLocation {
     });
 
     factory CurrentLocation.fromJson(Map<String, dynamic> json) => CurrentLocation(
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        latitude: json["latitude"]?.toDouble(),
+        longitude: json["longitude"]?.toDouble(),
     );
 
     Map<String, dynamic> toJson() => {
@@ -74,22 +78,26 @@ class Review {
     String? name;
     String? dateTime;
     String? content;
+    double? rated;
 
     Review({
         this.name,
         this.dateTime,
         this.content,
+        this.rated,
     });
 
     factory Review.fromJson(Map<String, dynamic> json) => Review(
         name: json["name"],
         dateTime: json["dateTime"],
         content: json["content"],
+        rated: json["rated"]?.toDouble(),
     );
 
     Map<String, dynamic> toJson() => {
         "name": name,
         "dateTime": dateTime,
         "content": content,
+        "rated": rated,
     };
 }

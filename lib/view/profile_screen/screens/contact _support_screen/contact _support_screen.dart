@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
 import 'package:quickmech/utils/color_constants.dart';
 
 class ContactSupportScreen extends StatefulWidget {
@@ -11,9 +14,12 @@ class ContactSupportScreen extends StatefulWidget {
 class _ContactSupportScreenState extends State<ContactSupportScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<MechanicProfileController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.bannerColor,
+        centerTitle: true,
         title: Text('ContactSupport'),
       ),
       body: Padding(
@@ -26,7 +32,6 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 decoration: BoxDecoration(
                     color: ColorConstants.primaryWhite,
                     borderRadius: BorderRadius.circular(20)),
-                height: 70,
                 width: 200,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -52,10 +57,38 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            '0123456789',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              provider.callCustomerService();
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 110,
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 3),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FaIcon(
+                                      FontAwesomeIcons.phone,
+                                      size: 14,
+                                      color: ColorConstants.primaryBlack,
+                                    ),
+                                    Text('Call Now',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: ColorConstants.primaryBlack))
+                                  ],
+                                ),
+                              ),
+                            ),
                           )
                         ],
                       )
@@ -73,7 +106,6 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 decoration: BoxDecoration(
                     color: ColorConstants.primaryWhite,
                     borderRadius: BorderRadius.circular(20)),
-                height: 70,
                 width: 200,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -97,15 +129,34 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 10,
                           ),
-                          Text(
-                            'hi@gmial.com',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              height: 40,
+                              width: 110,
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 3),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.email),
+                                    Text('Write Now',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: ColorConstants.primaryBlack))
+                                  ],
+                                ),
+                              ),
+                            ),
                           )
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -3,13 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quickmech/controller/fav_controller/fav_controller.dart';
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/db/home_datas.dart';
 import 'package:quickmech/view/categorywise_worker_list/categorywise_workers_list.dart';
 import 'package:quickmech/view/home_screen/item.dart';
+import 'package:quickmech/view/home_screen/widgets/worker_profile.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
+import 'package:quickmech/view/notification_screen.dart/notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -43,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Categorylist _categorylist = Categorylist();
   // ScrollController _scrollController = ScrollController();
-  bool _isClicked = false;
+
   int index = 0;
   PageController _pageController = PageController(initialPage: 0);
   var pageindi;
@@ -52,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var favoiuritepage = context.watch<FavouriterController>();
     var Mediaheight = MediaQuery.sizeOf(context).height;
     var Mediawidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
@@ -73,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     // }
                     // index = index + 1;
                     // setState(() {});
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationScreen()));
                   },
                   child: Icon(
                     Icons.notifications_outlined,
@@ -81,7 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 width: 40,
               ),
-              Icon(Icons.location_on_outlined),
+              Icon(
+                Icons.location_on_outlined,
+                color: Colors.white,
+              ),
               SizedBox(
                 width: 20,
               ),
@@ -116,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     //       ],
                     //     )),
                     SizedBox(
-                      height: Mediaheight * .08,
+                      height: Mediaheight * .1,
                     ),
                     Container(
                       height: Mediaheight * .05,
@@ -138,169 +149,184 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SliverList.list(children: [
+          SliverList.list(addAutomaticKeepAlives: true, children: [
             SingleChildScrollView(
               primary: true,
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: Mediaheight * .03,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          foregroundDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 200,
-                          width: Mediawidth,
-                          decoration: BoxDecoration(
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/background.jpg'),
+                        fit: BoxFit.cover)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Column(
+                    children: [
+                      // OFFER SCREEN
+                      SizedBox(
+                        height: Mediaheight * .03,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            foregroundDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            height: 200,
+                            width: Mediawidth,
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: ColorConstants.bannerColor),
-                          child: Stack(
-                            fit: StackFit.loose,
-                            children: [
-                              PageView.builder(
-                                  itemCount: _homeData.offerList.length,
-                                  controller: _pageController,
-                                  onPageChanged: (value) {
-                                    pageindi = value;
-                                    setState(() {});
-                                  },
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                        decoration: BoxDecoration(
+                            ),
+                            child: Stack(
+                              fit: StackFit.loose,
+                              children: [
+                                PageView.builder(
+                                    physics: BouncingScrollPhysics(
+                                        parent: ScrollPhysics()),
+                                    itemCount: _homeData.offerList.length,
+                                    controller: _pageController,
+                                    onPageChanged: (value) {
+                                      pageindi = value;
+                                      setState(() {});
+                                    },
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            border: Border.all()
+                                            border: Border.all(
+                                                color:
+                                                    ColorConstants.bannerColor),
+
                                             // gradient: LinearGradient(colors: [
                                             //   Colors.black.withOpacity(.6),
                                             //   Colors.black.withOpacity(.3)
                                             // ]),
-                                            ),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            _homeData.offerList[index].images,
-                                            fit: BoxFit.cover,
                                           ),
-                                        ));
-                                  }),
-                              Positioned.fill(
-                                left: 150,
-                                child: Container(
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: _homeData.offerList.length,
-                                    itemBuilder: (context, index) => SizedBox(
-                                      width: 12,
-                                      child: Positioned.fill(
-                                        child: Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: CircleAvatar(
-                                            radius: pageindi == index ? 6 : 3,
-                                            backgroundColor: pageindi == index
-                                                ? Colors.blue
-                                                : Colors.black,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.asset(
+                                              _homeData.offerList[index].images,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ));
+                                    }),
+                                Positioned.fill(
+                                  left: 150,
+                                  child: Container(
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: _homeData.offerList.length,
+                                      itemBuilder: (context, index) => SizedBox(
+                                        width: 12,
+                                        child: Positioned.fill(
+                                          child: Align(
+                                            alignment: Alignment.bottomCenter,
+                                            child: CircleAvatar(
+                                              radius: pageindi == index ? 6 : 3,
+                                              backgroundColor: pageindi == index
+                                                  ? Colors.blue
+                                                  : Colors.black,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Divider(),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Category',
-                            style: GoogleFonts.josefinSans(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20)),
+                                )
+                              ],
+                            )),
                       ),
-                    ),
-                    Container(
-                        height: 120,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _categorylist.category.length,
-                            itemBuilder: (context, index) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CategoryWiseWorkerscreen(
-                                                    categoryName: _categorylist
-                                                        .category[index]
-                                                        .category,
-                                                  )));
-                                    },
-                                    child: Container(
-                                        width: Mediawidth * .3,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: ColorConstants.bannerColor,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey,
-                                                offset: Offset(9.0, 9), //(x,y)
-                                                blurRadius: 6.0,
-                                              )
-                                            ]),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Image.asset(
-                                                _categorylist
-                                                    .category[index].image,
-                                                fit: BoxFit.cover,
-                                                height: 50,
+                      Divider(),
+                      //CATEGORY LIST
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Category',
+                              style: GoogleFonts.josefinSans(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20)),
+                        ),
+                      ),
+                      Container(
+                          height: 120,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _categorylist.category.length,
+                              itemBuilder: (context, index) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CategoryWiseWorkerscreen(
+                                                      categoryName:
+                                                          _categorylist
+                                                              .category[index]
+                                                              .category,
+                                                    )));
+                                      },
+                                      child: Container(
+                                          width: Mediawidth * .3,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: ColorConstants
+                                                      .bannerColor),
+                                              color:
+                                                  ColorConstants.primaryWhite,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey,
+                                                  offset:
+                                                      Offset(9.0, 9), //(x,y)
+                                                  blurRadius: 6.0,
+                                                )
+                                              ]),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.asset(
+                                                  _categorylist
+                                                      .category[index].image,
+                                                  color: const Color.fromARGB(
+                                                      255, 110, 106, 106),
+                                                  fit: BoxFit.cover,
+                                                  height: 50,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              _categorylist
-                                                  .category[index].category,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          ],
-                                        )),
-                                  ),
-                                ))),
-                    Divider(),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Our partners',
-                            style: GoogleFonts.josefinSans(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20)),
+                                              Text(
+                                                _categorylist
+                                                    .category[index].category,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
+                                    ),
+                                  ))),
+                      Divider(),
+                      //workers list
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Our partners',
+                              style: GoogleFonts.josefinSans(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20)),
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MechanicProfile()));
-                      },
-                      child: Container(
+                      Container(
                         height: Mediaheight * .4,
                         child: GridView.builder(
                             gridDelegate:
@@ -311,100 +337,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                     listen: false)
                                 .mechanicList
                                 .length,
-                            itemBuilder: (context, index) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(4.0, 4), //(x,y)
-                                              blurRadius: 6.0,
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: ColorConstants.primaryWhite,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.network(
-                                                Provider.of<MechanicController>(
-                                                        context,
-                                                        listen: false)
-                                                    .mechanicList[index]
-                                                    .image
-                                                    .toString(),
-                                                height: 100,
-                                                width: double.infinity,
-                                              ),
-                                            ),
-                                            Text(
-                                                Provider.of<MechanicController>(
-                                                        context,
-                                                        listen: false)
-                                                    .mechanicList[index]
-                                                    .name
-                                                    .toString()),
-                                            Text(
-                                                Provider.of<MechanicController>(
-                                                        context,
-                                                        listen: false)
-                                                    .mechanicList[index]
-                                                    .rating
-                                                    .toString())
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            InkWell(
-                                                onTap: () {
-                                                  index = 0;
-                                                  if (index ==
-                                                      Provider.of<MechanicController>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .mechanicList[
-                                                          index]) {
-                                                    _isClicked = true;
-                                                  } else {
-                                                    _isClicked = false;
-                                                  }
-                                                  index = index + 1;
-                                                  setState(() {});
-                                                },
-                                                child: Icon(
-                                                  _isClicked == false
-                                                      ? Icons.favorite_outline
-                                                      : Icons.favorite,
-                                                  color: _isClicked == false
-                                                      ? ColorConstants
-                                                          .primaryBlack
-                                                      : Colors.red,
-                                                )),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )),
+                            itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MechanicProfile(index: index),
+                                      ));
+                                },
+                                child: CustomWorkerProfileContainer(
+                                    index: index))),
                       ),
-                    ),
-                    SizedBox(
-                      height: Mediaheight * .1,
-                    ),
-                  ],
+                      // SizedBox(
+                      //   height: Mediaheight * .1,
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             )
