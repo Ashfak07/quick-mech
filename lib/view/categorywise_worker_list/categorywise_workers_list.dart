@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quickmech/controller/fav_controller/fav_controller.dart';
+import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 
 class CategoryWiseWorkerscreen extends StatelessWidget {
   const CategoryWiseWorkerscreen({super.key, required this.categoryName});
@@ -10,12 +13,6 @@ class CategoryWiseWorkerscreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(categoryName.toString()),
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) => ListTile(
-            title: Text('name'),
-            leading: Icon(Icons.person),
-            subtitle: Text('rating'),
-          ),
-        ));
+        body: Text('hi'));
   }
 }
