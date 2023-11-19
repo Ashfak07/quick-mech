@@ -17,10 +17,21 @@ class _orderdetailsState extends State<orderdetails> {
       IconButton(onPressed: (){}, icon: Icon(Icons.menu),),],),
       body: Column(
         children: [
-          Container(height: 400,width: double.infinity,color: Colors.black,),
-         BottomSheet(onClosing:() {
-           
-         }, builder: (context) {return PopupMenuItem(child: Container());}),
+          Container(height: 420,width: double.infinity,color: Colors.black,),
+         Container(
+          height:300,width:double.infinity,
+          child: Center(
+            child: ElevatedButton(
+              onPressed: (){
+              showModalBottomSheet(
+                context: context, builder: (BuildContext context) {
+              return  Container(
+                  height: double.infinity,color: Colors.white,
+                  child:Container() 
+                    );
+              });
+            }, child: Text("more details")),
+          ),)
         ],
       ),
     );

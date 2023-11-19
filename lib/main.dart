@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:quickmech/controller/booking_page_controller/booking_page_controller.dart';
 import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
 import 'package:quickmech/view/booking_page/booking_page.dart';
+import 'package:quickmech/view/booking_page/order_details.dart';
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BottomNavBar(),
+        home: orderdetails(),
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
