@@ -422,133 +422,205 @@ class _MechanicProfileState extends State<MechanicProfile> {
                     ),
                   ),
 
-                  // Reviews
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-                            Text('Reviews', style: TextStyleConstants.heading3),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      elevation: 10,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: double.infinity,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Abhishek B Ambady',
-                                      style: TextStyle(
-                                          color: ColorConstants.primaryBlack,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Text(
-                                    '2h ago',
-                                    style: TextStyle(
-                                        color: ColorConstants.systemGrey,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  child: Text(
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 5,
-                                  ),
-                                ),
-                              )
-                            ]),
-                      ),
+                    // Reviews
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Reviews',
+                              style: TextStyleConstants.heading3),
+                        ),
+                      ],
                     ),
-                  ),
-                  // Give feedback
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      elevation: 5,
-                      child: Container(
-                        height: 200,
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    hintText: 'Write Reviews...',
-                                    border: InputBorder.none),
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Provider.of<MechanicController>(context)
+                                .mechanicList[widget.index]
+                                .reviews
+                                ?.length ==
+                            0
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                PannableRatingBar(
-                                  rate: rating,
-                                  items: List.generate(
-                                      5,
-                                      (index) => RatingWidget(
-                                            selectedColor:
-                                                ColorConstants.bannerColor,
-                                            unSelectedColor: Colors.grey,
-                                            child: Icon(
-                                              Icons.star,
-                                              size: 40,
-                                            ),
-                                          )),
-                                  onChanged: (value) {
-                                    // the rating value is updated on tap or drag.
-                                    setState(() {
-                                      rating = value;
-                                    });
-                                  },
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.05,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.9,
-                                      decoration: BoxDecoration(
-                                          color: ColorConstants.bannerColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Center(
-                                          child: Text(
-                                        'Submit',
-                                        style: TextStyle(
-                                            color: ColorConstants.primaryWhite),
-                                      )),
-                                    ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                    'No reviews yet. Be the first one to write for ${Provider.of<MechanicController>(context).mechanicList[widget.index].name}',
+                                    style: TextStyle(
+                                        color: ColorConstants.primaryBlack),
                                   ),
                                 )
                               ],
                             ),
-                          ],
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: Provider.of<MechanicController>(context)
+                                .mechanicList[widget.index]
+                                .reviews
+                                ?.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                elevation: 10,
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.25,
+                                  width: double.infinity,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ListTile(
+                                          leading: CircleAvatar(
+                                            radius: 15,
+                                          ),
+                                          title: Text(
+                                            Provider.of<MechanicController>(
+                                                        context)
+                                                    .mechanicList[widget.index]
+                                                    .reviews?[index]
+                                                    .name ??
+                                                '',
+                                            style: TextStyle(
+                                                color:
+                                                    ColorConstants.primaryBlack,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: Row(children: [
+                                            PannableRatingBar(
+                                              rate:
+                                                  Provider.of<MechanicController>(
+                                                              context)
+                                                          .mechanicList[
+                                                              widget.index]
+                                                          .reviews?[index]
+                                                          .rated ??
+                                                      0,
+                                              items: List.generate(
+                                                  5,
+                                                  (index) => RatingWidget(
+                                                        selectedColor:
+                                                            ColorConstants
+                                                                .bannerColor,
+                                                        unSelectedColor:
+                                                            Colors.grey,
+                                                        child: Icon(
+                                                          Icons.star,
+                                                          size: 14,
+                                                        ),
+                                                      )),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: Text(
+                                                  '${Provider.of<MechanicController>(context).mechanicList[widget.index].reviews?[index].dateTime}'),
+                                            )
+                                          ]),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.1,
+                                            child: Text(
+                                              Provider.of<MechanicController>(
+                                                          context)
+                                                      .mechanicList[
+                                                          widget.index]
+                                                      .reviews?[index]
+                                                      .content ??
+                                                  '',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 4,
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                            ),
+                          ),
+                    // Give feedback
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 5,
+                        child: Container(
+                          height: 200,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Write Reviews...',
+                                      border: InputBorder.none),
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  PannableRatingBar(
+                                    rate: rating,
+                                    items: List.generate(
+                                        5,
+                                        (index) => RatingWidget(
+                                              selectedColor:
+                                                  ColorConstants.bannerColor,
+                                              unSelectedColor: Colors.grey,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 40,
+                                              ),
+                                            )),
+                                    onChanged: (value) {
+                                      // the rating value is updated on tap or drag.
+                                      setState(() {
+                                        rating = value;
+                                      });
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                        decoration: BoxDecoration(
+                                            color: ColorConstants.bannerColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Center(
+                                            child: Text(
+                                          'Submit',
+                                          style: TextStyle(
+                                              color:
+                                                  ColorConstants.primaryWhite),
+                                        )),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
 
                   SizedBox(
                     height: 50,

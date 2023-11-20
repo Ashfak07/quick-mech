@@ -3,6 +3,7 @@ class MechanicModel {
     String? location;
     CurrentLocation? currentLocation;
     String? status;
+    String? category;
     String? age;
     String? image;
     String? contactNumber;
@@ -16,6 +17,7 @@ class MechanicModel {
         this.location,
         this.currentLocation,
         this.status,
+        this.category,
         this.age,
         this.image,
         this.contactNumber,
@@ -30,6 +32,7 @@ class MechanicModel {
         location: json["location"],
         currentLocation: json["current_location"] == null ? null : CurrentLocation.fromJson(json["current_location"]),
         status: json["status"],
+        category: json["category"],
         age: json["age"],
         image: json["image"],
         contactNumber: json["contact number"],
@@ -44,6 +47,7 @@ class MechanicModel {
         "location": location,
         "current_location": currentLocation?.toJson(),
         "status": status,
+        "category": category,
         "age": age,
         "image": image,
         "contact number": contactNumber,
@@ -76,28 +80,32 @@ class CurrentLocation {
 
 class Review {
     String? name;
-    String? dateTime;
+    String? datetime;
     String? content;
     double? rated;
+    String? dateTime;
 
     Review({
         this.name,
-        this.dateTime,
+        this.datetime,
         this.content,
         this.rated,
+        this.dateTime,
     });
 
     factory Review.fromJson(Map<String, dynamic> json) => Review(
         name: json["name"],
-        dateTime: json["dateTime"],
+        datetime: json["datetime"],
         content: json["content"],
         rated: json["rated"]?.toDouble(),
+        dateTime: json["dateTime"],
     );
 
     Map<String, dynamic> toJson() => {
         "name": name,
-        "dateTime": dateTime,
+        "datetime": datetime,
         "content": content,
         "rated": rated,
+        "dateTime": dateTime,
     };
 }

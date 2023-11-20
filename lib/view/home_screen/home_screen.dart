@@ -13,6 +13,7 @@ import 'package:quickmech/view/home_screen/item.dart';
 import 'package:quickmech/view/home_screen/widgets/worker_profile.dart';
 import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
 import 'package:quickmech/view/notification_screen.dart/notification_screen.dart';
+import 'package:quickmech/view/search_screen/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -129,19 +130,45 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: Mediaheight * .1,
                     ),
-                    Container(
-                      height: Mediaheight * .05,
-                      width: Mediawidth * .7,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white),
-                      child: TextFormField(
-                        textAlignVertical: TextAlignVertical.center,
-                        enableInteractiveSelection: true,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Icon(Icons.search),
-                            hintText: 'Search'),
+                    // Search
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchScreen(),
+                            ));
+                      },
+                      child: Container(
+                        height: Mediaheight * .05,
+                        width: Mediawidth * .7,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Icon(
+                                Icons.search,
+                                size: 18,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Text('Search here...'),
+                            ),
+                          ]),
+                        ),
+                        // child: TextFormField(
+                        //   textAlignVertical: TextAlignVertical.center,
+                        //   enableInteractiveSelection: true,
+                        //   decoration: InputDecoration(
+                        //       border: InputBorder.none,
+                        //       prefixIcon: Icon(Icons.search),
+                        //       hintText: 'Search'),
+                        // ),
                       ),
                     ),
                   ],
