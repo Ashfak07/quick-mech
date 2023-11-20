@@ -15,6 +15,13 @@ class MechanicProfileController with ChangeNotifier {
     notifyListeners();
   }
 
+  void callCustomerService() async {
+    if (!await launchUrl(Uri(scheme: 'tel', path: '0123456789'))) {
+      throw ('Could not launch ${Uri(scheme: 'tel', path: '0123456789')}');
+    }
+    notifyListeners();
+  }
+
   void launchWhatsapp({required number, required name}) async {
     String message =
         'Hi, I am $name. I need urgent roadside assistance. Please help me.';
@@ -65,8 +72,8 @@ class MechanicProfileController with ChangeNotifier {
     // continue accessing the position of the device.
     currentLocation = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-       print(currentLocation!.latitude);
-       print(currentLocation!.longitude);
+    print(currentLocation!.latitude);
+    print(currentLocation!.longitude);
     notifyListeners();
   }
 
