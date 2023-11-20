@@ -12,7 +12,7 @@ import 'package:quickmech/view/Edit_profile/edit_profile.dart';
 import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
-
+import 'package:quickmech/view/home_screen/home_screen.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
