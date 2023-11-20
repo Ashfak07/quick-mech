@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
+import 'package:quickmech/view/booking_page/order_details.dart';
 
 class BookingPage extends StatefulWidget {
   const BookingPage({super.key});
@@ -254,17 +255,34 @@ class _BookingPageState extends State<BookingPage> {
               padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
               child: Card(
                 elevation: 10,
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: ColorConstants.bannerColor,
-                      borderRadius: BorderRadius.circular(13)),
-                  child: Center(
-                      child: Text("Book",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16))),
+                child: InkWell(onTap: () {
+                  showDialog(context: context, builder: (context) => AlertDialog(
+                    actions: [
+                      ElevatedButton(onPressed: (){}, child: Text("cancel"),),
+                      ElevatedButton(onPressed: (){
+                        Navigator.push
+                        (context, MaterialPageRoute(builder: (context) => orderdetails(),),);
+                      }, child: Text("Order details"),)
+                      ],
+                      title: Text("your booking is placed"),
+                      
+                      contentPadding: EdgeInsets.all(20),
+                      
+                      content:Text("mechanic will arrive in 15 minutes")  ,
+                  ),);
+                },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: ColorConstants.bannerColor,
+                        borderRadius: BorderRadius.circular(13)),
+                    child: Center(
+                        child: Text("Book",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16))),
+                  ),
                 ),
               ),
             )
