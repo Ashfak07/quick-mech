@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 10,
               ),
-              Text('vyshnav'),
+              Text('hi'),
               SizedBox(
                 height: 20,
               ),
