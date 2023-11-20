@@ -52,8 +52,8 @@ class _edit_profileState extends State<edit_profile> {
                                 color: Colors.amber,
                                 borderRadius: BorderRadius.circular(20))),
                     Positioned(
-                        bottom: -5,
-                        right: -5,
+                        bottom: -4,
+                        right: -4,
                         child: CircleAvatar(
                           radius: 19,
                           backgroundColor: ColorConstants.primaryWhite,
@@ -172,6 +172,7 @@ class _edit_profileState extends State<edit_profile> {
 
   void showImagePickerOption(BuildContext context) {
     showModalBottomSheet(
+        shape: Border.symmetric(),
         context: context,
         builder: (builder) {
           return SizedBox(
