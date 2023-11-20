@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/controller/fav_controller/fav_controller.dart';
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
+import 'package:quickmech/mechanic_model/view/homescreen/homescreen.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:quickmech/controller/booking_page_controller/booking_page_controller.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BottomNavBar(),
+        home: HomeScreenMechanic(),
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
