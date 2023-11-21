@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/utils/database/user_db.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
@@ -10,8 +9,7 @@ import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key, this.index});
-  final index;
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -31,24 +29,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/jpg/avatar.jpg'),
-                            fit: BoxFit.cover),
-                        borderRadius: BorderRadius.circular(20)),
-                    height: 150,
-                    width: 150,
+                  CircleAvatar(
+                    radius: 70,
+                    backgroundColor: ColorConstants.bannerColor,
+                    backgroundImage: AssetImage(userData[0].image.toString()),
                   ),
                   Positioned(
-                      bottom: -5,
-                      right: -5,
+                      bottom: -1,
+                      right: -1,
                       child: CircleAvatar(
                         radius: 19,
                         backgroundColor: ColorConstants.primaryWhite,
                         child: CircleAvatar(
                           radius: 15,
-                          backgroundColor: ColorConstants.systemGrey,
+                          backgroundColor: ColorConstants.bannerColor,
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -68,9 +62,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 10,
               ),
-              Text('hi'),
+              Text(
+                userData[0].name.toString(),
+                style: TextStyleConstants.heading3,
+              ),
+              Text(
+                userData[0].mobile.toString(),
+                style: TextStyleConstants.heading3,
+              ),
+              Text(
+                userData[0].email.toString(),
+                style: TextStyleConstants.heading3,
+              ),
               SizedBox(
-                height: 20,
+                height: 5,
               ),
               Padding(
                 padding: const EdgeInsets.all(10),

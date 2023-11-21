@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:quickmech/utils/color_constants.dart';
-import 'package:quickmech/view/Edit_profile/edit_profile.dart';
 import 'package:quickmech/view/activity_screen/activity.dart';
 import 'package:quickmech/view/home_screen/home_screen.dart';
 import 'package:quickmech/view/profile_screen/profile_screen.dart';

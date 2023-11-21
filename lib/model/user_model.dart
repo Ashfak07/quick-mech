@@ -1,11 +1,11 @@
-class ProfileModel {
+class UserModel {
   String? name;
   String? email;
   String? mobile;
   String? image;
-  ProfileModel({this.name, this.email, this.mobile, this.image});
+  UserModel({this.name, this.email, this.mobile, this.image});
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         name: json["name"],
         email: json["email"],
         mobile: json["mobile"],

@@ -1,5 +1,3 @@
-
-
 class database {
   static List categories = [
     "2 wheeler"
@@ -12,12 +10,12 @@ class database {
     {
       "name": "Saju",
       "location": "Edapally, Ernakulam",
-      "current_location":{
-        "latitude":10.023676,
-        "longitude":76.311623,
+      "current_location": {
+        "latitude": 10.023676,
+        "longitude": 76.311623,
       },
-      "status":"online",
-      "category":"4-wheeler",
+      "status": "online",
+      "category": "4-wheeler",
       "age": "35",
       "image":
           "https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg",
@@ -32,8 +30,8 @@ class database {
           "datetime": "25 days ago",
           "content":
               "Great service provided by the team with fair pricing. Every order I made for my car was fulfilled either on time or beforehand. All accessories on the app are also great. User interface and customer support are also great",
-              "rated":3.5,
-              "dateTime":"23 days ago"
+          "rated": 3.5,
+          "dateTime": "23 days ago"
         },
       ],
       // rating
@@ -42,11 +40,11 @@ class database {
     {
       "name": "Kishan kumar",
       "location": "Chittethukara,Ernakulam",
-            "current_location":{
-        "latitude":9.992212,
-        "longitude":76.352577,
+      "current_location": {
+        "latitude": 9.992212,
+        "longitude": 76.352577,
       },
-      "status":"offline",
+      "status": "offline",
       "category": "4-wheeler",
       "age": "40",
       "image":
@@ -62,8 +60,8 @@ class database {
           "datetime": "5 days ago",
           "content":
               "I am very much disappointed with Quick mech service buddy and their staff. I gave my car to Gomechanic for the standard service and front and rear paint. Everything was done good but half tank fuel has been theft my car, and I was wondering how this happened. The workshop location is just 4-5 kms from my place, and the same has been escatlated to the customer service, and they promised to resolve the issue within 48 hrs but till nothing happened. ",
-              "rated":4.1,
-               "dateTime":"23 days ago"
+          "rated": 4.1,
+          "dateTime": "23 days ago"
         },
       ],
       // rating
@@ -71,15 +69,6 @@ class database {
     }
   ];
 
-  static List<Map<String, dynamic>> user = [
-    {
-      "name": "Arun",
-      "email": "Arunkumar@gmail.com",
-      "mobile": "9879564817",
-      "image":
-          "https://i.pinimg.com/originals/d6/30/8a/d6308a0357b762ee72b49b482f125ef7.jpg"
-    }
-  ];
   static List saved = [];
   static List history = [];
 }

@@ -20,7 +20,6 @@ class MechanicProfile extends StatefulWidget {
 class _MechanicProfileState extends State<MechanicProfile> {
   @override
   void initState() {
-    // TODO: implement initState
     Provider.of<MechanicProfileController>(context, listen: false)
         .determinePosition();
     Provider.of<MechanicController>(context, listen: false).getMechanic();
@@ -68,8 +67,7 @@ class _MechanicProfileState extends State<MechanicProfile> {
                           color: ColorConstants.primaryWhite, fontSize: 18),
                     ),
                     subtitle: Text(
-                      '${Provider.of<MechanicProfileController>(context)
-                              .roundDistanceInKM} km away',
+                      '${Provider.of<MechanicProfileController>(context).roundDistanceInKM} km away',
                       style: TextStyle(
                           color: ColorConstants.systemGrey, fontSize: 12),
                     ),
@@ -421,205 +419,199 @@ class _MechanicProfileState extends State<MechanicProfile> {
                     ),
                   ),
 
-                    // Reviews
-                    Row(
-                      children: [
-                        Padding(
+                  // Reviews
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child:
+                            Text('Reviews', style: TextStyleConstants.heading3),
+                      ),
+                    ],
+                  ),
+                  Provider.of<MechanicController>(context)
+                              .mechanicList[widget.index]
+                              .reviews
+                              ?.length ==
+                          0
+                      ? Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Reviews',
-                              style: TextStyleConstants.heading3),
-                        ),
-                      ],
-                    ),
-                    Provider.of<MechanicController>(context)
-                                .mechanicList[widget.index]
-                                .reviews
-                                ?.length ==
-                            0
-                        ? Padding(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Text(
+                                  'No reviews yet. Be the first one to write for ${Provider.of<MechanicController>(context).mechanicList[widget.index].name}',
+                                  style: TextStyle(
+                                      color: ColorConstants.primaryBlack),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: Provider.of<MechanicController>(context)
+                              .mechanicList[widget.index]
+                              .reviews
+                              ?.length,
+                          itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.6,
-                                  child: Text(
-                                    'No reviews yet. Be the first one to write for ${Provider.of<MechanicController>(context).mechanicList[widget.index].name}',
-                                    style: TextStyle(
-                                        color: ColorConstants.primaryBlack),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: Provider.of<MechanicController>(context)
-                                .mechanicList[widget.index]
-                                .reviews
-                                ?.length,
-                            itemBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 10,
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.25,
-                                  width: double.infinity,
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ListTile(
-                                          leading: CircleAvatar(
-                                            radius: 15,
+                            child: Card(
+                              elevation: 10,
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                width: double.infinity,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ListTile(
+                                        leading: CircleAvatar(
+                                          radius: 15,
+                                        ),
+                                        title: Text(
+                                          Provider.of<MechanicController>(
+                                                      context)
+                                                  .mechanicList[widget.index]
+                                                  .reviews?[index]
+                                                  .name ??
+                                              '',
+                                          style: TextStyle(
+                                              color:
+                                                  ColorConstants.primaryBlack,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Row(children: [
+                                          PannableRatingBar(
+                                            rate: Provider.of<
+                                                            MechanicController>(
+                                                        context)
+                                                    .mechanicList[widget.index]
+                                                    .reviews?[index]
+                                                    .rated ??
+                                                0,
+                                            items: List.generate(
+                                                5,
+                                                (index) => RatingWidget(
+                                                      selectedColor:
+                                                          ColorConstants
+                                                              .bannerColor,
+                                                      unSelectedColor:
+                                                          Colors.grey,
+                                                      child: Icon(
+                                                        Icons.star,
+                                                        size: 14,
+                                                      ),
+                                                    )),
                                           ),
-                                          title: Text(
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            child: Text(
+                                                '${Provider.of<MechanicController>(context).mechanicList[widget.index].reviews?[index].dateTime}'),
+                                          )
+                                        ]),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.1,
+                                          child: Text(
                                             Provider.of<MechanicController>(
                                                         context)
                                                     .mechanicList[widget.index]
                                                     .reviews?[index]
-                                                    .name ??
+                                                    .content ??
                                                 '',
-                                            style: TextStyle(
-                                                color:
-                                                    ColorConstants.primaryBlack,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          subtitle: Row(children: [
-                                            PannableRatingBar(
-                                              rate:
-                                                  Provider.of<MechanicController>(
-                                                              context)
-                                                          .mechanicList[
-                                                              widget.index]
-                                                          .reviews?[index]
-                                                          .rated ??
-                                                      0,
-                                              items: List.generate(
-                                                  5,
-                                                  (index) => RatingWidget(
-                                                        selectedColor:
-                                                            ColorConstants
-                                                                .bannerColor,
-                                                        unSelectedColor:
-                                                            Colors.grey,
-                                                        child: Icon(
-                                                          Icons.star,
-                                                          size: 14,
-                                                        ),
-                                                      )),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                              child: Text(
-                                                  '${Provider.of<MechanicController>(context).mechanicList[widget.index].reviews?[index].dateTime}'),
-                                            )
-                                          ]),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.1,
-                                            child: Text(
-                                              Provider.of<MechanicController>(
-                                                          context)
-                                                      .mechanicList[
-                                                          widget.index]
-                                                      .reviews?[index]
-                                                      .content ??
-                                                  '',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 4,
-                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 4,
                                           ),
                                         ),
-                                      ]),
-                                ),
+                                      ),
+                                    ]),
                               ),
                             ),
                           ),
-                    // Give feedback
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        elevation: 5,
-                        child: Container(
-                          height: 200,
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      hintText: 'Write Reviews...',
-                                      border: InputBorder.none),
+                        ),
+                  // Give feedback
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        height: 200,
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    hintText: 'Write Reviews...',
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                PannableRatingBar(
+                                  rate: rating,
+                                  items: List.generate(
+                                      5,
+                                      (index) => RatingWidget(
+                                            selectedColor:
+                                                ColorConstants.bannerColor,
+                                            unSelectedColor: Colors.grey,
+                                            child: Icon(
+                                              Icons.star,
+                                              size: 40,
+                                            ),
+                                          )),
+                                  onChanged: (value) {
+                                    // the rating value is updated on tap or drag.
+                                    setState(() {
+                                      rating = value;
+                                    });
+                                  },
                                 ),
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  PannableRatingBar(
-                                    rate: rating,
-                                    items: List.generate(
-                                        5,
-                                        (index) => RatingWidget(
-                                              selectedColor:
-                                                  ColorConstants.bannerColor,
-                                              unSelectedColor: Colors.grey,
-                                              child: Icon(
-                                                Icons.star,
-                                                size: 40,
-                                              ),
-                                            )),
-                                    onChanged: (value) {
-                                      // the rating value is updated on tap or drag.
-                                      setState(() {
-                                        rating = value;
-                                      });
-                                    },
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
-                                        decoration: BoxDecoration(
-                                            color: ColorConstants.bannerColor,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Center(
-                                            child: Text(
-                                          'Submit',
-                                          style: TextStyle(
-                                              color:
-                                                  ColorConstants.primaryWhite),
-                                        )),
-                                      ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9,
+                                      decoration: BoxDecoration(
+                                          color: ColorConstants.bannerColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Center(
+                                          child: Text(
+                                        'Submit',
+                                        style: TextStyle(
+                                            color: ColorConstants.primaryWhite),
+                                      )),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
+                  ),
 
                   SizedBox(
                     height: 50,

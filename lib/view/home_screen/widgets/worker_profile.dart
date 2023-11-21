@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickmech/controller/fav_controller/fav_controller.dart';
-import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 
