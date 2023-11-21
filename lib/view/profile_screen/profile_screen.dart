@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/utils/database/user_db.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
@@ -34,7 +33,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/jpg/avatar.jpg'),
+                            image: AssetImage(
+                              UserData[0].image.toString(),
+                            ),
                             fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(20)),
                     height: 150,
@@ -68,7 +69,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 10,
               ),
-              Text('vyshnav'),
+              Text(
+                UserData[0].name.toString(),
+                style: TextStyleConstants.heading3,
+              ),
+              Text(
+                UserData[0].mobile.toString(),
+                style: TextStyleConstants.heading5,
+              ),
+              Text(
+                UserData[0].email.toString(),
+                style: TextStyleConstants.heading5,
+              ),
               SizedBox(
                 height: 20,
               ),
