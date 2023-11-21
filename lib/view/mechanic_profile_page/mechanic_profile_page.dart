@@ -68,9 +68,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
                           color: ColorConstants.primaryWhite, fontSize: 18),
                     ),
                     subtitle: Text(
-                      Provider.of<MechanicProfileController>(context)
-                              .distanceBetween ??
-                          '',
+                      '${Provider.of<MechanicProfileController>(context)
+                              .roundDistanceInKM} km away',
                       style: TextStyle(
                           color: ColorConstants.systemGrey, fontSize: 12),
                     ),
