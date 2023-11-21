@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
+import 'package:quickmech/view/login_screen/login_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/about_us_screen/about_us_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/contact%20_support_screen.dart';
-import 'package:quickmech/view/profile_screen/screens/settings_screen/settings_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, this.index});
+  final index;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -29,7 +33,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.black,
+                        image: DecorationImage(
+                            image: AssetImage('assets/jpg/avatar.jpg'),
+                            fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(20)),
                     height: 150,
                     width: 150,
@@ -60,117 +66,181 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
-              Text(
-                'John',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                '9658232520',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              Text('vyshnav'),
               SizedBox(
                 height: 20,
               ),
-              Divider(
-                thickness: 1,
-                color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: ColorConstants.bannerColor,
+                  child: Column(
+                    children: [
+                      ListTile(
+                          leading: Icon(
+                            Icons.messenger_outline_rounded,
+                            color: ColorConstants.primaryBlack,
+                          ),
+                          title: Text(
+                            'Messages',
+                            style: TextStyleConstants.heading3,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: ColorConstants.primaryBlack,
+                            ),
+                          )),
+                      Divider(
+                        thickness: 2,
+                        color: ColorConstants.primaryWhite,
+                      ),
+                      ListTile(
+                          leading: Icon(
+                            Icons.account_balance_wallet_rounded,
+                            color: ColorConstants.primaryBlack,
+                          ),
+                          title: Text(
+                            'Account points',
+                            style: TextStyleConstants.heading3,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: ColorConstants.primaryBlack,
+                            ),
+                          )),
+                      Divider(
+                        thickness: 2,
+                        color: ColorConstants.primaryWhite,
+                      ),
+                      ListTile(
+                          leading: Icon(
+                            Icons.description_outlined,
+                            color: ColorConstants.primaryBlack,
+                          ),
+                          title: Text(
+                            'Terms and conditions',
+                            style: TextStyleConstants.heading3,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    TermsAndConditionsScreen(),
+                              ));
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: ColorConstants.primaryBlack,
+                            ),
+                          )),
+                      Divider(
+                        thickness: 2,
+                        color: ColorConstants.primaryWhite,
+                      ),
+                      ListTile(
+                          leading: Icon(
+                            Icons.contact_support_outlined,
+                            color: ColorConstants.primaryBlack,
+                          ),
+                          title: Text(
+                            'Contact support',
+                            style: TextStyleConstants.heading3,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ContactSupportScreen(),
+                              ));
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: ColorConstants.primaryBlack,
+                            ),
+                          )),
+                      Divider(
+                        thickness: 2,
+                        color: ColorConstants.primaryWhite,
+                      ),
+                      ListTile(
+                          leading: Icon(
+                            Icons.info_outline,
+                            color: ColorConstants.primaryBlack,
+                          ),
+                          title: Text(
+                            'About us',
+                            style: TextStyleConstants.heading3,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AboutUsScreen(),
+                              ));
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: ColorConstants.primaryBlack,
+                            ),
+                          )),
+                      Divider(
+                        thickness: 2,
+                        color: ColorConstants.primaryWhite,
+                      ),
+                      ListTile(
+                          leading: Icon(
+                            Icons.info_outline,
+                            color: ColorConstants.primaryBlack,
+                          ),
+                          title: Text(
+                            'Logout',
+                            style: TextStyleConstants.heading3,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('LOGOUT!'),
+                                    content:
+                                        const Text('Do you want to logout ?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen(),
+                                              ),
+                                              (route) => false);
+                                        },
+                                        child: const Text('YES'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                        child: const Text('NO'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: ColorConstants.primaryBlack,
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text(
-                    'Settings',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SettingsScreen(),
-                      ));
-                    },
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                    ),
-                  )),
-              ListTile(
-                  leading: Icon(Icons.messenger_outline_rounded),
-                  title: Text(
-                    'Messages',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                    ),
-                  )),
-              ListTile(
-                  leading: Icon(Icons.account_balance_wallet_rounded),
-                  title: Text(
-                    'Account points',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                    ),
-                  )),
-              ListTile(
-                  leading: Icon(Icons.description_outlined),
-                  title: Text(
-                    'Terms and conditions',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => TermsAndConditionsScreen(),
-                      ));
-                    },
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                    ),
-                  )),
-              ListTile(
-                  leading: Icon(Icons.contact_support_outlined),
-                  title: Text(
-                    'Contact support',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ContactSupportScreen(),
-                      ));
-                    },
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                    ),
-                  )),
-              ListTile(
-                  leading: Icon(Icons.info_outline),
-                  title: Text(
-                    'About us',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AboutUsScreen(),
-                      ));
-                    },
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                    ),
-                  )),
             ],
           ),
         ],
