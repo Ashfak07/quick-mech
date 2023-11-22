@@ -25,27 +25,30 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusNode fieldone = FocusNode();
     FocusNode fieldtwo = FocusNode();
     return Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: Form(
           key: _formkey,
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 150, vertical: 42),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 150, vertical: 42),
+                  ),
+                  height: 110,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(80),
+                      ),
+                      color: ColorConstants.bannerColor),
+                  // child: Image.asset(
+                  //   'assets/images/shopping.png',
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
-                height: 110,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(80),
-                    ),
-                    color: ColorConstants.bannerColor),
-                // child: Image.asset(
-                //   'assets/images/shopping.png',
-                //   fit: BoxFit.cover,
-                // ),
               ),
               Container(
                 color: ColorConstants.bannerColor,
@@ -185,23 +188,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Column(
-                children: [
-                  Align(
-                    child: Container(
-                      height: 190,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(80),
-                          ),
-                          color: ColorConstants.bannerColor),
-                      // child: Image.asset(
-                      //   'assets/images/shopping.png',
-                      //   fit: BoxFit.cover,
-                      // ),
-                    ),
-                  ),
-                ],
+              // Spacer(),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(80),
+                      ),
+                      color: ColorConstants.bannerColor),
+                  // child: Image.asset(
+                  //   'assets/images/shopping.png',
+                  //   fit: BoxFit.cover,
+                  // ),
+                ),
               ),
             ],
           ),
