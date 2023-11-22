@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quickmech/mechanic_model/view/homescreen/widgets/work_details.dart';
+import 'package:quickmech/mechanic_module/work_details/work_details.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/constants/image_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
