@@ -12,7 +12,6 @@ import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart'
 import 'package:quickmech/view/home_screen/home_screen.dart';
 import 'package:quickmech/view/intro_screen/intro_screen.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
-import 'package:quickmech/view/splash_screen/splash_screen.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -46,7 +45,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: BottomNavBar(),
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
