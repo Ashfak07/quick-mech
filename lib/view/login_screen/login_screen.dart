@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/main.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/home_screen/home_screen.dart';
 import 'package:quickmech/view/intro_screen/intro_screen.dart';
 import 'package:quickmech/view/registration_screen/registration_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -160,11 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: InkWell(
                           onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => IntroScreen()));
-                              // checkLogin(context, 0);
+                              checkLogin(context);
                             }
                           },
                           child: Container(
@@ -205,6 +204,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ));
+  }
+
+  void checkLogin(BuildContext context) async {
+    if (_usernamecontroller.text == _passwordcontroller.text) {
+      final sharedpref = await SharedPreferences.getInstance();
+      await sharedpref.setBool(savekey, true);
+    }
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => IntroScreen()));
   }
 
   // void checkLogin(BuildContext context, index) async {

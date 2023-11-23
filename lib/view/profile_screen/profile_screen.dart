@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/main.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/database/user_db.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
@@ -7,6 +8,7 @@ import 'package:quickmech/view/login_screen/login_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/about_us_screen/about_us_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/contact%20_support_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, this.index});
@@ -224,13 +226,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     actions: <Widget>[
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen(),
-                                              ),
-                                              (route) => false);
+                                          logOut(context);
+                                          // Navigator.pushAndRemoveUntil(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //       builder: (context) =>
+                                          //           LoginScreen(),
+                                          //     ),
+                                          //     (route) => false);
                                         },
                                         child: const Text('YES'),
                                       ),
@@ -258,5 +261,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  logOut(BuildContext context) async {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+        (Route) => false);
+    final sharedpref = await SharedPreferences.getInstance();
+    await sharedpref.setBool(savekey, false);
   }
 }
