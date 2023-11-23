@@ -48,8 +48,8 @@ class MechanicprofileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg"),
-                                fit: BoxFit.cover),
+                                    "https://th.bing.com/th/id/OIP.ok20ZEluhnlQQzWG26XEnwHaHa?pid=ImgDet&rs=1"),
+                                fit: BoxFit.fill),
                             color: Colors.amber,
                             borderRadius: BorderRadius.circular(20)),
                       ),
@@ -89,7 +89,7 @@ class MechanicprofileScreen extends StatelessWidget {
             child: Divider(
               thickness: 2,
               // height: 26,
-              color: Colors.amber,
+              color: Colors.grey,
             ),
           ),
           SizedBox(
