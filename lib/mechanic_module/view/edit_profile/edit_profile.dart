@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -9,13 +13,16 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formkey = GlobalKey<FormState>();
+
+  Uint8List? _image;
+  File? selectedImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
         key: _formkey,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           child: ListView(
             children: [
               Column(
@@ -25,21 +32,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Center(
                     child: Stack(
                       children: [
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
+                        _image != null
+                            ? Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: MemoryImage(_image!),
+                                        fit: BoxFit.cover),
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(20)),
+                              )
+                            : Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "https://th.bing.com/th/id/OIP.ok20ZEluhnlQQzWG26XEnwHaHa?pid=ImgDet&rs=1"),
+                                        fit: BoxFit.cover),
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(20))),
                         Positioned(
                           bottom: 2,
                           right: 1,
-                          child: CircleAvatar(
-                            radius: 15,
-                            child: Icon(
-                              Icons.camera_alt_rounded,
-                              size: 18,
+                          child: InkWell(
+                            onTap: () {
+                              showImagePickerOption(context);
+                            },
+                            child: CircleAvatar(
+                              radius: 15,
+                              child: Icon(
+                                Icons.camera_alt_rounded,
+                                size: 18,
+                              ),
                             ),
                           ),
                         )
@@ -56,8 +82,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         hintText: "Name"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return ("Name rewuired");
-                      } else {return null;}
+                        return ("Name required");
+                      } else {
+                        return null;
+                      }
                     },
                   ),
                   SizedBox(
@@ -68,6 +96,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
                         hintText: "Phone number"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ("Number required");
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 30,
@@ -77,15 +112,44 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
                         hintText: "Location"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ("Location required");
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 30,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
+                        // prefix: DropdownButtonHideUnderline(
+                        //   child: DropdownButton<String>(
+                        //     items: <String>['A', 'B', 'C', 'D']
+                        //         .map((String value) {
+                        //       return DropdownMenuItem<String>(
+                        //         value: value,
+                        //         child: Text(value),
+                        //       );
+                        //     }).toList(),
+                        //     onChanged: (_) {},
+                        //     // items: ,
+                        //     // onChanged: ,
+                        //     // value: ,
+                        //   ),
+                        // ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
                         hintText: "Category"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ("Category required");
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 30,
@@ -97,6 +161,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
                         hintText: "About"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ("About");
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 30,
@@ -104,19 +175,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 5, horizontal: 100),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(15)),
-                      height: 50,
-                      child: Center(
-                          child: Text(
-                        "Save",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 19),
-                      )),
+                    child: InkWell(
+                      onTap: () {
+                        if (_formkey.currentState!.validate()) {}
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            borderRadius: BorderRadius.circular(15)),
+                        height: 50,
+                        child: Center(
+                            child: Text(
+                          "Save",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 19),
+                        )),
+                      ),
                     ),
                   )
                 ],
@@ -126,5 +202,79 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
       ),
     );
+  }
+
+  void showImagePickerOption(BuildContext context) {
+    showModalBottomSheet(
+        shape: Border.symmetric(),
+        context: context,
+        builder: (builder) {
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 9,
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                      onTap: () {
+                        _pickImageFromCamera();
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              size: 30,
+                            ),
+                            Text("Camera")
+                          ],
+                        ),
+                      )),
+                ),
+                Expanded(
+                  child: InkWell(
+                      onTap: () {
+                        _pickImageFromGallery();
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image,
+                              size: 30,
+                            ),
+                            Text("Gallery")
+                          ],
+                        ),
+                      )),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Future _pickImageFromGallery() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
+  }
+
+  Future _pickImageFromCamera() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
   }
 }
