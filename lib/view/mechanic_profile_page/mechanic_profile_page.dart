@@ -521,24 +521,22 @@ class _MechanicProfileState extends State<MechanicProfile> {
                                             )
                                           ]),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.1,
-                                            child: Text(
-                                              Provider.of<MechanicController>(
-                                                          context)
-                                                      .mechanicList[
-                                                          widget.index]
-                                                      .reviews?[index]
-                                                      .content ??
-                                                  '',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 4,
-                                            ),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.1,
+                                              padding: EdgeInsets.all(5),
+                                          child: Text(
+                                            Provider.of<MechanicController>(
+                                                        context)
+                                                    .mechanicList[
+                                                        widget.index]
+                                                    .reviews?[index]
+                                                    .content ??
+                                                '',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 4,
                                           ),
                                         ),
                                       ]),
