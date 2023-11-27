@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quickmech/main.dart';
 import 'package:quickmech/utils/color_constants.dart';
-
 import 'package:quickmech/utils/constants/image_constants.dart';
-
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:quickmech/view/choose_login_type/choose_login_type.dart';
-import 'package:quickmech/view/home_screen/home_screen.dart';
-import 'package:quickmech/view/login_screen/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
