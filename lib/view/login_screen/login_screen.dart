@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickmech/main.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:quickmech/view/firebase_auth_implimentation/fire_base_auth.dart';
 import 'package:quickmech/view/home_screen/home_screen.dart';
 import 'package:quickmech/view/intro_screen/intro_screen.dart';
 import 'package:quickmech/view/registration_screen/registration_screen.dart';
@@ -16,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   int index = 0;
   bool _isSecurePassword = true;
-
+  final FirebaseAuthServices auth = FirebaseAuthServices();
   // RegistrationController registrationController = RegistrationController();
   final _formkey = GlobalKey<FormState>();
   TextEditingController _usernamecontroller = TextEditingController();
@@ -163,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: InkWell(
                           onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              checkLogin(context);
+                              sign();
                             }
                           },
                           child: Container(
@@ -206,14 +209,32 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  void checkLogin(BuildContext context) async {
-    if (_usernamecontroller.text == _passwordcontroller.text) {
-      final sharedpref = await SharedPreferences.getInstance();
-      await sharedpref.setBool(savekey, true);
+  void sign() async {
+    User? user = await auth.signInWithEmailandPassword(
+        _usernamecontroller.text, _passwordcontroller.text);
+    final sharedpref = await SharedPreferences.getInstance();
+    await sharedpref.setBool(savekey, true);
+    if (user != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+    } else {
+      final _errorMessage = 'password and username does not matchhhhh';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red,
+          margin: EdgeInsets.all(10),
+          content: Text(_errorMessage)));
     }
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => IntroScreen()));
   }
+
+  // void checkLogin(BuildContext context) async {
+  //   if (_usernamecontroller.text == _passwordcontroller.text) {
+  //     final sharedpref = await SharedPreferences.getInstance();
+  //     await sharedpref.setBool(savekey, true);
+  //   }
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => IntroScreen()));
+  // }
 
   // void checkLogin(BuildContext context, index) async {
   //   final _username = _usernamecontroller.text;

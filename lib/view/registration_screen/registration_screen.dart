@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/firebase_auth_implimentation/fire_base_auth.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -11,6 +13,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isSecurePassword = true;
+  final FirebaseAuthServices auth = FirebaseAuthServices();
   // RegistrationController registrationController = RegistrationController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController usernamecontroller = TextEditingController();
@@ -129,12 +132,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 5),
               child: InkWell(
                 onTap: () {
-                  // if (formkey.currentState!.validate()) {
-                  //   registrationController.SaveUserData(UserRegModel(
-                  //       email: emailcontroller.text,
-                  //       username: usernamecontroller.text,
-                  //       password: passwordcontroller.text));
-                  // }
+                  if (formkey.currentState!.validate()) {
+                    signUp();
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -169,5 +169,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         icon: _isSecurePassword
             ? Icon(Icons.visibility)
             : Icon(Icons.visibility_off));
+  }
+
+  void signUp() async {
+    User? user = await auth.signUpWithEmailandPassword(
+        emailcontroller.text, passwordcontroller.text);
+    if (user != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
   }
 }

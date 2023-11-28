@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "349437087540",
+    "project_id": "quickmech-7ab4d",
+    "storage_bucket": "quickmech-7ab4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349437087540:android:6acb04a0bf01db357a1f61",
+        "android_client_info": {
+          "package_name": "com.example.quickmech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkkFrMmvVSaECRqKHIXioRNdUTI5e7QRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

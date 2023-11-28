@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:quickmech/controller/fav_controller/fav_controller.dart';
@@ -9,13 +10,18 @@ import 'package:quickmech/controller/booking_page_controller/booking_page_contro
 import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
 import 'package:quickmech/utils/database/database_for%20_favourite.dart';
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:quickmech/view/login_screen/login_screen.dart';
 import 'package:quickmech/view/splash_screen/splash_screen.dart';
 
 const savekey = 'userlogedin';
 void main(List<String> args) async {
-  await Hive.initFlutter();
-  var box = await Hive.openBox('localdb');
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: 'AIzaSyCkkFrMmvVSaECRqKHIXioRNdUTI5e7QRE',
+          appId: '1:349437087540:android:6acb04a0bf01db357a1f61',
+          messagingSenderId: '',
+          projectId: 'quickmech-7ab4d',
+          storageBucket: 'quickmech-7ab4d.appspot.com'));
   runApp(MyApp());
 }
 
@@ -47,7 +53,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BottomNavBar(),
+        home: SplashScreen(),
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: ColorConstants.bannerColor),
