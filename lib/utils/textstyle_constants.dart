@@ -10,4 +10,8 @@ class TextStyleConstants {
       color: ColorConstants.primaryBlack,
       fontSize: 14,
       fontWeight: FontWeight.bold);
+      static TextStyle heading4 = TextStyle(
+      color: ColorConstants.primaryBlack,
+      fontSize: 16,
+      fontWeight: FontWeight.w600);
 }

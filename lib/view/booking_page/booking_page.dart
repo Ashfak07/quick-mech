@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
-import 'package:quickmech/view/booking_page/order_details.dart';
+import 'package:quickmech/view/order_details_page/order_details_page.dart';
 
 class BookingPage extends StatefulWidget {
   const BookingPage({super.key});
@@ -99,7 +99,7 @@ class _BookingPageState extends State<BookingPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20, left: 10),
                         child: Text(
-                          "Time Peroid",
+                          "Time Period",
                           style: TextStyleConstants.heading3,
                         ),
                       ),
@@ -211,6 +211,7 @@ class _BookingPageState extends State<BookingPage> {
                     ],
                   )
                 : Container(),
+                // Location
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 10),
               child: Text(
@@ -237,6 +238,28 @@ class _BookingPageState extends State<BookingPage> {
                 ),
               ),
             ),
+            // Vehicle Details
+             Padding(
+              padding: const EdgeInsets.only(top: 20, left: 10),
+              child: Text(
+                "Vehicle Details",
+                style: TextStyleConstants.heading3,
+              ),
+            ),
+             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              child: SizedBox(
+                width: 350,
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                      hintText: "Company name,\nModel name,\nModel number",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: SizedBox(
@@ -258,17 +281,17 @@ class _BookingPageState extends State<BookingPage> {
                 child: InkWell(onTap: () {
                   showDialog(context: context, builder: (context) => AlertDialog(
                     actions: [
-                      ElevatedButton(onPressed: (){}, child: Text("cancel"),),
+                      ElevatedButton(onPressed: (){}, child: Text("Cancel Booking"),),
                       ElevatedButton(onPressed: (){
                         Navigator.push
-                        (context, MaterialPageRoute(builder: (context) => orderdetails(),),);
+                        (context, MaterialPageRoute(builder: (context) => OrderDetails(),),);
                       }, child: Text("Order details"),)
                       ],
-                      title: Text("your booking is placed"),
+                      title: Text("Your booking is placed"),
                       
                       contentPadding: EdgeInsets.all(20),
                       
-                      content:Text("mechanic will arrive in 15 minutes")  ,
+                      content:Text("Mechanic will arrive in 15 minutes")  ,
                   ),);
                 },
                   child: Container(
@@ -277,7 +300,7 @@ class _BookingPageState extends State<BookingPage> {
                         color: ColorConstants.bannerColor,
                         borderRadius: BorderRadius.circular(13)),
                     child: Center(
-                        child: Text("Book",
+                        child: Text("Confirm Booking",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
