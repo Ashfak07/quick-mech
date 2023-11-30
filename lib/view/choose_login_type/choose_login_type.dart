@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quickmech/mechanic_module/view/homescreen/homescreen.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
@@ -9,6 +8,7 @@ class ChooseLoginType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late bool userLoginType;
     return Scaffold(
       body: Center(
         child: Column(
@@ -16,8 +16,13 @@ class ChooseLoginType extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                userLoginType = true;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LoginScreen(
+                              userLoginType: userLoginType,
+                            )));
               },
               child: Container(
                 width: 163,
@@ -42,10 +47,13 @@ class ChooseLoginType extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+                userLoginType = false;
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreenMechanic()));
+                        builder: (context) => LoginScreen(
+                              userLoginType: userLoginType,
+                            )));
               },
               child: Container(
                 padding: EdgeInsets.all(8),
