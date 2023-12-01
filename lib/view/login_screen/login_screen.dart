@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quickmech/main.dart';
+import 'package:quickmech/mechanic_module/view/homescreen/homescreen.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:quickmech/view/common/snackbar/snackbar_screen.dart';
 import 'package:quickmech/view/firebase_auth_implimentation/fire_base_auth.dart';
 import 'package:quickmech/view/home_screen/home_screen.dart';
 import 'package:quickmech/view/intro_screen/intro_screen.dart';
@@ -10,7 +14,8 @@ import 'package:quickmech/view/registration_screen/registration_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final bool userLoginType;
+  const LoginScreen({super.key, required this.userLoginType});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   int index = 0;
   bool _isSecurePassword = true;
+  bool _isMechanicLoggedIn = false;
   final FirebaseAuthServices auth = FirebaseAuthServices();
   // RegistrationController registrationController = RegistrationController();
   final _formkey = GlobalKey<FormState>();
@@ -73,12 +79,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'LOGIN',
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorConstants.bannerColor),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  widget.userLoginType == true
+                                      ? 'User'
+                                      : 'Mechanic',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'LOGIN',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorConstants.bannerColor),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 80,
@@ -147,7 +169,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RegistrationScreen()));
+                                            RegistrationScreen(
+                                              userLoginType:
+                                                  widget.userLoginType,
+                                            )));
                               },
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
@@ -210,20 +235,39 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void sign() async {
-    User? user = await auth.signInWithEmailandPassword(
-        _usernamecontroller.text, _passwordcontroller.text);
-    final sharedpref = await SharedPreferences.getInstance();
-    await sharedpref.setBool(savekey, true);
-    if (user != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+    if (widget.userLoginType == true) {
+      User? user = await auth.signInWithEmailandPassword(
+          _usernamecontroller.text, _passwordcontroller.text);
+      final sharedpref = await SharedPreferences.getInstance();
+      await sharedpref.setBool(savekey, true);
+      if (user != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+      } else {
+        final _errorMessage = 'password and username does not matchhhhh';
+        ShowSnackbar().showSnackbar(context: context, content: _errorMessage);
+      }
     } else {
-      final _errorMessage = 'password and username does not matchhhhh';
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.red,
-          margin: EdgeInsets.all(10),
-          content: Text(_errorMessage)));
+      CollectionReference mechanicCredentials =
+          FirebaseFirestore.instance.collection('mechanicCredentials');
+      mechanicCredentials.get().then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          if (doc['email'] == _usernamecontroller.text &&
+              doc['password'] == _passwordcontroller.text) {
+            _isMechanicLoggedIn = true;
+            ShowSnackbar().showSnackbar(
+                context: context, content: "Logged in successfully");
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreenMechanic(),
+                ));
+          } else {
+            ShowSnackbar()
+                .showSnackbar(context: context, content: "Unable to login");
+          }
+        });
+      });
     }
   }
 

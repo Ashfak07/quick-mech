@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickmech/utils/color_constants.dart';
+import 'package:quickmech/view/common/snackbar/snackbar_screen.dart';
 import 'package:quickmech/view/firebase_auth_implimentation/fire_base_auth.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+  final bool userLoginType;
+  const RegistrationScreen({super.key, required this.userLoginType});
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
@@ -140,7 +143,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                              builder: (context) => LoginScreen(
+                                    userLoginType: widget.userLoginType,
+                                  )));
                     },
                     child: Padding(
                       padding:
@@ -203,6 +208,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (user != null) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    if (widget.userLoginType == true) {
+      User? user = await auth.signUpWithEmailandPassword(
+          emailcontroller.text, passwordcontroller.text);
+      if (user != null) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LoginScreen(
+                      userLoginType: widget.userLoginType,
+                    )));
+      }
+    } else {
+      CollectionReference mechanicCredentials =
+          FirebaseFirestore.instance.collection('mechanicCredentials');
+      await mechanicCredentials.add({
+        'email': emailcontroller.text,
+        'password': passwordcontroller.text
+      }).then((value) {
+        ShowSnackbar().showSnackbar(
+            context: context, content: 'Registered as a mechanic successfully');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  LoginScreen(userLoginType: widget.userLoginType),
+            ));
+      }).catchError((error) {
+        ShowSnackbar()
+            .showSnackbar(context: context, content: 'Failed to register');
+      });
+      ;
     }
   }
 }
