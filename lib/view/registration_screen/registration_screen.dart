@@ -18,9 +18,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController usernamecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController mobilecontroller = TextEditingController();
   FocusNode fieldone = FocusNode();
   FocusNode fieldtwo = FocusNode();
   FocusNode fieldthree = FocusNode();
+  FocusNode fieldfour = FocusNode();
   @override
   Widget build(BuildContext context) {
     final formkey = GlobalKey<FormState>();
@@ -89,8 +91,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 15,
                   ),
                   TextFormField(
-                    controller: passwordcontroller,
+                    controller: mobilecontroller,
+                    scrollPhysics: NeverScrollableScrollPhysics(),
                     focusNode: fieldthree,
+                    onFieldSubmitted: (value) {
+                      FocusScope.of(context).requestFocus(fieldthree);
+                    },
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'mobile',
+                        prefixIcon: Icon(Icons.person)),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ('require');
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    controller: passwordcontroller,
+                    focusNode: fieldfour,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'password',
@@ -174,6 +198,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void signUp() async {
     User? user = await auth.signUpWithEmailandPassword(
         emailcontroller.text, passwordcontroller.text);
+    auth.addUser(
+        usernamecontroller.text, mobilecontroller.text, emailcontroller.text);
     if (user != null) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
