@@ -207,38 +207,44 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         usernamecontroller.text, mobilecontroller.text, emailcontroller.text);
     if (user != null) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    if (widget.userLoginType == true) {
-      User? user = await auth.signUpWithEmailandPassword(
-          emailcontroller.text, passwordcontroller.text);
-      if (user != null) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LoginScreen(
-                      userLoginType: widget.userLoginType,
-                    )));
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginScreen(
+                    userLoginType: widget.userLoginType,
+                  )));
+      if (widget.userLoginType == true) {
+        User? user = await auth.signUpWithEmailandPassword(
+            emailcontroller.text, passwordcontroller.text);
+        if (user != null) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => LoginScreen(
+                        userLoginType: widget.userLoginType,
+                      )));
+        }
+      } else {
+        CollectionReference mechanicCredentials =
+            FirebaseFirestore.instance.collection('mechanicCredentials');
+        await mechanicCredentials.add({
+          'email': emailcontroller.text,
+          'password': passwordcontroller.text
+        }).then((value) {
+          ShowSnackbar().showSnackbar(
+              context: context,
+              content: 'Registered as a mechanic successfully');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    LoginScreen(userLoginType: widget.userLoginType),
+              ));
+        }).catchError((error) {
+          ShowSnackbar()
+              .showSnackbar(context: context, content: 'Failed to register');
+        });
+        ;
       }
-    } else {
-      CollectionReference mechanicCredentials =
-          FirebaseFirestore.instance.collection('mechanicCredentials');
-      await mechanicCredentials.add({
-        'email': emailcontroller.text,
-        'password': passwordcontroller.text
-      }).then((value) {
-        ShowSnackbar().showSnackbar(
-            context: context, content: 'Registered as a mechanic successfully');
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  LoginScreen(userLoginType: widget.userLoginType),
-            ));
-      }).catchError((error) {
-        ShowSnackbar()
-            .showSnackbar(context: context, content: 'Failed to register');
-      });
-      ;
     }
   }
 }
