@@ -3,6 +3,7 @@ import 'package:quickmech/mechanic_module/view/work_details/work_details.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/constants/image_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
+import 'package:quickmech/view/choose_login_type/choose_login_type.dart';
 
 class HomeScreenMechanic extends StatefulWidget {
   const HomeScreenMechanic({super.key});
@@ -95,12 +96,21 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Divider(),
                     ),
-                    ListTile(
-                      title: Text(
-                        'Logout',
-                        style: TextStyle(fontSize: 18),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChooseLoginType(),
+                            ));
+                      },
+                      child: ListTile(
+                        title: Text(
+                          'Logout',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        trailing: Icon(Icons.logout_outlined),
                       ),
-                      trailing: Icon(Icons.logout_outlined),
                     )
                   ],
                 )

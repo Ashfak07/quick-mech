@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickmech/main.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/database/user_db.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/Edit_profile/edit_profile.dart';
-import 'package:quickmech/view/login_screen/login_screen.dart';
+import 'package:quickmech/view/choose_login_type/choose_login_type.dart';
 import 'package:quickmech/view/profile_screen/screens/about_us_screen/about_us_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/contact%20_support_screen.dart';
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
@@ -266,7 +265,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   logOut(BuildContext context) async {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => ChooseLoginType()),
         (Route) => false);
     final sharedpref = await SharedPreferences.getInstance();
     await sharedpref.setBool(savekey, false);
