@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quickmech/view/profile_screen/profile_screen.dart';
 
 class FirebaseAuthServices {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -34,6 +35,7 @@ class FirebaseAuthServices {
       "userName": username,
       "mobile": mobile,
       "email": email,
+      "uid": user!.uid,
     });
   }
 

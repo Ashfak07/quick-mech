@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,8 @@ import 'package:quickmech/view/profile_screen/screens/contact%20_support_screen/
 import 'package:quickmech/view/profile_screen/screens/terms_and_conditions_screen/terms_and_conditions_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final User? user = FirebaseAuth.instance.currentUser;
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, this.index});
   final index;
@@ -24,32 +25,24 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  void initState() {
-    super.initState();
+  String username = '';
+  void getData() async {
+    var vari = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
 
-    setState(() {});
-
-    getdata();
+    setState(() {
+      username = vari.data()!['userName'];
+      print(username);
+    });
   }
 
-  String? username;
-  String? email;
-  String? mobile;
-
-  void getdata() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final _uid = user!.uid;
-    final DocumentSnapshot userdoc =
-        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    if (userdoc == null) {
-      return;
-    } else {
-      setState(() {});
-      username = userdoc.get('userName');
-      email = userdoc.get('email');
-      mobile = userdoc.get('mobile');
-    }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
   }
 
   @override
@@ -104,8 +97,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(
               height: 10,
             ),
-            userListTile(username.toString(), 0, context),
-            userListTile(mobile.toString(), 1, context),
+            Text(
+              username.toString(),
+              style: TextStyleConstants.heading5,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              UserData[0].email.toString(),
+              style: TextStyleConstants.heading5,
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               UserData[0].email.toString(),
               style: TextStyleConstants.heading5,
