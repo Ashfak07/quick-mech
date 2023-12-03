@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:quickmech/mechanic_module/view/profile_screen/profile_screen.dart';
 import 'package:quickmech/mechanic_module/view/work_details/work_details.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/constants/image_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/choose_login_type/choose_login_type.dart';
+import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
+import 'package:quickmech/view/profile_screen/profile_screen.dart';
 
 class HomeScreenMechanic extends StatefulWidget {
   const HomeScreenMechanic({super.key});
@@ -33,23 +36,30 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: width * 0.4,
-                        child: Text(
-                          'Mechanic Name',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MechanicProfileScreen(),
+                        )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: width * 0.4,
+                          child: Text(
+                            'Mechanic Name',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
                         ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16,
-                        color: ColorConstants.bannerColor,
-                      )
-                    ],
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 16,
+                          color: ColorConstants.bannerColor,
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
