@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkUserLoged() async {
     final sharedpref = await SharedPreferences.getInstance();
-    final userloged = await sharedpref.get(savekey);
+    final userloged = await sharedpref.get(saveKey);
     if (userloged == null || userloged == false) {
       gotologin();
     } else {

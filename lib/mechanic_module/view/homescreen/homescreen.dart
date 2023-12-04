@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:quickmech/mechanic_module/view/homescreen/widgets/panel_form/panel_form.dart';
 import 'package:quickmech/mechanic_module/view/profile_screen/profile_screen.dart';
-import 'package:quickmech/mechanic_module/view/work_details/work_details.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/constants/image_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/choose_login_type/choose_login_type.dart';
-import 'package:quickmech/view/mechanic_profile_page/mechanic_profile_page.dart';
-import 'package:quickmech/view/profile_screen/profile_screen.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeScreenMechanic extends StatefulWidget {
   const HomeScreenMechanic({super.key});
@@ -16,11 +16,12 @@ class HomeScreenMechanic extends StatefulWidget {
 }
 
 class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
+  bool _isOnline = false;
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    bool _isOnline = false;
     return Scaffold(
       backgroundColor: ColorConstants.secondaryWhite,
       drawer: Drawer(
@@ -70,14 +71,25 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
               'Duty Status',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            trailing: Switch(
-              value: _isOnline,
-              inactiveThumbColor: Color.fromARGB(255, 255, 133, 122),
-              onChanged: (value) {
-                setState(() {
-                  _isOnline = value;
-                });
-              },
+            trailing: SizedBox(
+              width: 100,
+              child: FlutterSwitch(
+                activeText: "Online",
+                activeColor: ColorConstants.bannerColor,
+                inactiveText: "Offline",
+                value: _isOnline,
+                valueFontSize: 12,
+                toggleSize: 20,
+                width: 80,
+                height: 40,
+                borderRadius: 25.0,
+                showOnOff: true,
+                onToggle: (val) {
+                  setState(() {
+                    _isOnline = val;
+                  });
+                },
+              ),
             ),
           ),
           Expanded(
@@ -168,147 +180,166 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
       //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
       //   ),
       // ]),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Incoming Bookings',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Expanded(
-            child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              elevation: 5,
-              child: Container(
-                height: height * 0.45,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: ColorConstants.systemGrey)),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
+      body: Stack(
+        children: [
+          SlidingUpPanel(
+            minHeight: height * 0.3,
+            maxHeight: height * 0.8,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+            defaultPanelState: PanelState.OPEN,
+            parallaxEnabled: true,
+            parallaxOffset: .5,
+            backdropEnabled: true,
+            panelBuilder: (sc) => PanelForm(),
+            body:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Incoming Bookings',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                  child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      height: height * 0.45,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: ColorConstants.systemGrey)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              width: width * 0.8,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Elamakkara,Edapally,Ernakulam,Kerala,India",
-                                  style: TextStyleConstants.heading3,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Distance',
-                                style:
-                                    TextStyle(color: ColorConstants.systemGrey),
-                              ),
-                              Text(
-                                '6 KM',
-                                style: TextStyleConstants.heading5,
-                              ),
-                            ],
-                          ),
-                          Container(
-                            height: height * 0.05,
-                            width: 1,
-                            color: ColorConstants.systemGrey,
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'Time',
-                                style:
-                                    TextStyle(color: ColorConstants.systemGrey),
-                              ),
-                              Text(
-                                '45 mins',
-                                style: TextStyleConstants.heading5,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        child: Text('2-wheeler',
-                            style: TextStyle(
-                                color: ColorConstants.systemGrey,
-                                fontWeight: FontWeight.w600)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        child: Text(
-                          'TVS Ntorq 2020',
-                          style: TextStyleConstants.heading5,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              child: Container(
-                                width: width * 0.4,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 1,
-                                        color: ColorConstants.primaryBlack)),
-                                child: Center(
-                                  child: Text(
-                                    'IGNORE',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 69, 69, 69),
-                                        fontSize: 18),
-                                  ),
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.8,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Elamakkara,Edapally,Ernakulam,Kerala,India",
+                                        style: TextStyleConstants.heading3,
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                            InkWell(
-                              child: Container(
-                                width: width * 0.4,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    color: ColorConstants.bannerColor),
-                                child: Center(
-                                  child: Text(
-                                    'ACCEPT',
-                                    style: TextStyle(
-                                        color: ColorConstants.primaryWhite,
-                                        fontSize: 18),
-                                  ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Distance',
+                                      style: TextStyle(
+                                          color: ColorConstants.systemGrey),
+                                    ),
+                                    Text(
+                                      '6 KM',
+                                      style: TextStyleConstants.heading5,
+                                    ),
+                                  ],
                                 ),
+                                Container(
+                                  height: height * 0.05,
+                                  width: 1,
+                                  color: ColorConstants.systemGrey,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Time',
+                                      style: TextStyle(
+                                          color: ColorConstants.systemGrey),
+                                    ),
+                                    Text(
+                                      '45 mins',
+                                      style: TextStyleConstants.heading5,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 10),
+                              child: Text('2-wheeler',
+                                  style: TextStyle(
+                                      color: ColorConstants.systemGrey,
+                                      fontWeight: FontWeight.w600)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 10),
+                              child: Text(
+                                'TVS Ntorq 2020',
+                                style: TextStyleConstants.heading5,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    child: Container(
+                                      width: width * 0.4,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 1,
+                                              color:
+                                                  ColorConstants.primaryBlack)),
+                                      child: Center(
+                                        child: Text(
+                                          'IGNORE',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 69, 69, 69),
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Container(
+                                      width: width * 0.4,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                          color: ColorConstants.bannerColor),
+                                      child: Center(
+                                        child: Text(
+                                          'ACCEPT',
+                                          style: TextStyle(
+                                              color:
+                                                  ColorConstants.primaryWhite,
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             )
-                          ],
-                        ),
-                      )
-                    ]),
-              ),
-            ),
-          ),
-        ))
-      ]),
+                          ]),
+                    ),
+                  ),
+                ),
+              ))
+            ]),
+          )
+        ],
+      ),
     );
   }
 }
