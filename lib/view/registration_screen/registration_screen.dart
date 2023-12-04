@@ -224,11 +224,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       )));
         }
       } else {
-        CollectionReference mechanicCredentials =
-            FirebaseFirestore.instance.collection('mechanicCredentials');
-        await mechanicCredentials.add({
+        CollectionReference mechanics =
+            FirebaseFirestore.instance.collection('mechanics');
+        await mechanics.add({
           'email': emailcontroller.text,
-          'password': passwordcontroller.text
+          'password': passwordcontroller.text,
         }).then((value) {
           ShowSnackbar().showSnackbar(
               context: context,
