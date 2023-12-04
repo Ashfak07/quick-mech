@@ -8,7 +8,6 @@ List<Map<String, dynamic>> mechanic = [
       },
       "status": "online",
       "category": "4-wheeler",
-      "age": "35",
       "image":
           "https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg",
       "contact number": "9946353610",

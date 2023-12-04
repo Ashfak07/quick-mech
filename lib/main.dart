@@ -1,18 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:quickmech/controller/fav_controller/fav_controller.dart';
+import 'package:quickmech/controller/login_controller/login_controller.dart';
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
-import 'package:quickmech/mechanic_module/view/homescreen/homescreen.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:quickmech/controller/booking_page_controller/booking_page_controller.dart';
 import 'package:quickmech/controller/mechanic_profile_controller/mechanic_profile_controller.dart';
 import 'package:quickmech/utils/database/database_for%20_favourite.dart';
-import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:quickmech/view/splash_screen/splash_screen.dart';
 
-const savekey = 'userlogedin';
+const saveKey = 'userlogedin';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -34,6 +32,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => MechanicController(),
+        ),
+         ChangeNotifierProvider(
+          create: (context) => LoginController(),
         ),
         ChangeNotifierProvider(
           create: (context) => MechanicProfileController(),
