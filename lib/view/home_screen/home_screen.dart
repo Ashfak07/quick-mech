@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  CollectionReference mechanics =
+      FirebaseFirestore.instance.collection('mechanics');
   HomeData _homeData = HomeData();
   @override
   void initState() {
@@ -149,14 +152,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
                               child: Icon(
                                 Icons.search,
                                 size: 18,
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
                               child: Text('Search here...'),
                             ),
                           ]),
@@ -353,29 +358,95 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 20)),
                         ),
                       ),
-                      Container(
-                        height: Mediaheight * .4,
-                        child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: Provider.of<MechanicController>(context,
-                                    listen: false)
-                                .mechanicList
-                                .length,
-                            itemBuilder: (context, index) => GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MechanicProfile(index: index),
-                                      ));
-                                },
-                                child: CustomWorkerProfileContainer(
-                                    index: index))),
-                      ),
+                      StreamBuilder(
+                          stream: mechanics.snapshots(),
+                          builder: (context, snapshots) {
+                            if (snapshots.hasData) {
+                              return Container(
+                                height: Mediaheight * .4,
+                                child: GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshots.data!.docs.length,
+                                    itemBuilder: (context, index) {
+                                      DocumentSnapshot mech =
+                                          snapshots.data!.docs[index];
+                                      return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MechanicProfile(
+                                                          index: index),
+                                                ));
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.grey,
+                                                        offset: Offset(
+                                                            4.0, 4), //(x,y)
+                                                        blurRadius: 6.0,
+                                                      )
+                                                    ],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    border: Border.all(
+                                                        color: ColorConstants
+                                                            .bannerColor),
+                                                    color: ColorConstants
+                                                        .primaryWhite,
+                                                  ),
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.network(
+                                                          Provider.of<MechanicController>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .mechanicList[
+                                                                  index]
+                                                              .image
+                                                              .toString(),
+                                                          height: 100,
+                                                          width:
+                                                              double.infinity,
+                                                        ),
+                                                      ),
+                                                      Text(mech['email']),
+                                                      Text(mech['password']),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ));
+                                    }),
+                              );
+                            }
+                            return CircularProgressIndicator();
+                          })
                       // SizedBox(
                       //   height: Mediaheight * .1,
                       // ),

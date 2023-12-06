@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:quickmech/controller/booking_controller/booking_controller.dart';
 import 'package:quickmech/controller/fav_controller/fav_controller.dart';
 import 'package:quickmech/controller/login_controller/login_controller.dart';
 import 'package:quickmech/controller/mechanic_controller/mechanic_controller.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => MechanicController(),
         ),
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (context) => LoginController(),
         ),
         ChangeNotifierProvider(
@@ -50,7 +51,10 @@ class MyApp extends StatelessWidget {
                 throw ArgumentError.notNull('favoiuritepage');
               favoiuritepage.favouritelist = CustomFavlist;
               return favoiuritepage;
-            }))
+            })),
+        ChangeNotifierProvider(
+          create: (context) => BookingController(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quickmech/controller/booking_controller/booking_controller.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/order_details_page/order_details_page.dart';
@@ -15,9 +17,12 @@ class _BookingPageState extends State<BookingPage> {
 
   TimeOfDay Fromtime = TimeOfDay(hour: 10, minute: 30);
   TimeOfDay Totime = TimeOfDay(hour: 10, minute: 30);
-
+  TextEditingController vehicledetail = TextEditingController();
+  TextEditingController additionaldetails = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    BookingController bookingprovider =
+        Provider.of<BookingController>(context, listen: false);
     final hours = Fromtime.hour.toString().padLeft(2, '0');
     final minutes = Fromtime.minute.toString().padLeft(2, '0');
     final Fromhours = Totime.hour.toString().padLeft(2, '0');
@@ -211,7 +216,7 @@ class _BookingPageState extends State<BookingPage> {
                     ],
                   )
                 : Container(),
-                // Location
+            // Location
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 10),
               child: Text(
@@ -239,18 +244,19 @@ class _BookingPageState extends State<BookingPage> {
               ),
             ),
             // Vehicle Details
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(top: 20, left: 10),
               child: Text(
                 "Vehicle Details",
                 style: TextStyleConstants.heading3,
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: SizedBox(
                 width: 350,
                 child: TextField(
+                  controller: vehicledetail,
                   keyboardType: TextInputType.multiline,
                   maxLines: 3,
                   decoration: InputDecoration(
@@ -265,6 +271,7 @@ class _BookingPageState extends State<BookingPage> {
               child: SizedBox(
                 width: 350,
                 child: TextField(
+                  controller: additionaldetails,
                   keyboardType: TextInputType.multiline,
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -278,22 +285,36 @@ class _BookingPageState extends State<BookingPage> {
               padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
               child: Card(
                 elevation: 10,
-                child: InkWell(onTap: () {
-                  showDialog(context: context, builder: (context) => AlertDialog(
-                    actions: [
-                      ElevatedButton(onPressed: (){}, child: Text("Cancel Booking"),),
-                      ElevatedButton(onPressed: (){
-                        Navigator.push
-                        (context, MaterialPageRoute(builder: (context) => OrderDetails(),),);
-                      }, child: Text("Order details"),)
-                      ],
-                      title: Text("Your booking is placed"),
-                      
-                      contentPadding: EdgeInsets.all(20),
-                      
-                      content:Text("Mechanic will arrive in 15 minutes")  ,
-                  ),);
-                },
+                child: InkWell(
+                  onTap: () {
+                    bookingprovider.AddBooking(
+                        vehicledetail.text, additionaldetails.text);
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Cancel Booking"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OrderDetails(),
+                                ),
+                              );
+                            },
+                            child: Text("Order details"),
+                          )
+                        ],
+                        title: Text("Your booking is placed"),
+                        contentPadding: EdgeInsets.all(20),
+                        content: Text("Mechanic will arrive in 15 minutes"),
+                      ),
+                    );
+                  },
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(

@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (snapshot.hasData) {
                 return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: snapshot.data?.docs.length,
+                    itemCount: 1,
                     itemBuilder: (context, index) {
                       var data = snapshot.data?.docs[index];
                       return Column(
