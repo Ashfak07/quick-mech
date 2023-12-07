@@ -1,38 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:quickmech/controller/login_controller/login_controller.dart';
-import 'package:quickmech/main.dart';
 import 'package:quickmech/mechanic_module/view/homescreen/homescreen.dart';
+import 'package:quickmech/mechanic_module/view/registration_screen/registration_screen.dart';
 import 'package:quickmech/utils/color_constants.dart';
-import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:quickmech/view/common/snackbar/snackbar_screen.dart';
 import 'package:quickmech/view/firebase_auth_implimentation/fire_base_auth.dart';
 import 'package:quickmech/view/registration_screen/registration_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreenMechanic extends StatefulWidget {
   final bool userLoginType;
-  const LoginScreen({super.key, required this.userLoginType});
+  const LoginScreenMechanic({super.key, required this.userLoginType});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreenMechanic> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreenMechanic> {
   int index = 0;
   bool _isSecurePassword = true;
   final FirebaseAuthServices auth = FirebaseAuthServices();
   // RegistrationController registrationController = RegistrationController();
   final _formkey = GlobalKey<FormState>();
-  TextEditingController _usernamecontroller = TextEditingController();
-  TextEditingController _passwordcontroller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var mediaWidth = MediaQuery.sizeOf(context).width;
-    var mediaheight = MediaQuery.sizeOf(context).height;
     FocusNode fieldone = FocusNode();
     FocusNode fieldtwo = FocusNode();
     return Scaffold(
@@ -82,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'User',
+                                  'Mechanic',
                                   style: GoogleFonts.montserrat(
                                       fontSize: 28,
                                       fontWeight: FontWeight.w500),
@@ -103,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 80,
                             ),
                             TextFormField(
-                              controller: _usernamecontroller,
+                              controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               scrollPhysics: NeverScrollableScrollPhysics(),
                               focusNode: fieldone,
@@ -112,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
-                                  hintText: 'username or email',
+                                  hintText: 'email',
                                   prefixIcon: Icon(Icons.person)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -127,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 15),
                             TextFormField(
-                              controller: _passwordcontroller,
+                              controller: passwordController,
                               scrollPhysics: NeverScrollableScrollPhysics(),
                               focusNode: fieldtwo,
                               // onFieldSubmitted: (value) {
@@ -166,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RegistrationScreen(
+                                            RegistrationScreenMechanic(
                                               userLoginType:
                                                   widget.userLoginType,
                                             )));
@@ -188,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: InkWell(
                           onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              sign();
+                              signIn();
                             }
                           },
                           child: Container(
@@ -231,49 +228,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  void sign() async {
-    User? user = await auth.signInWithEmailandPassword(
-        _usernamecontroller.text, _passwordcontroller.text);
-    final sharedpref = await SharedPreferences.getInstance();
-    await sharedpref.setBool(saveKey, true);
-    if (user != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BottomNavBar()));
-    } else {
-      final _errorMessage = 'password and username does not match';
-      ShowSnackbar().showSnackbar(context: context, content: _errorMessage);
-    }
-  }
-
-  // void checkLogin(BuildContext context) async {
-  //   if (_usernamecontroller.text == _passwordcontroller.text) {
-  //     final sharedpref = await SharedPreferences.getInstance();
-  //     await sharedpref.setBool(savekey, true);
-  //   }
-  //   Navigator.push(
-  //       context, MaterialPageRoute(builder: (context) => IntroScreen()));
-  // }
-
-  // void checkLogin(BuildContext context, index) async {
-  //   final _username = _usernamecontroller.text;
-  //   final _password = _passwordcontroller.text;
-  //   if (_username == registrationController.userCred[index].email ||
-  //       _username == registrationController.userCred[index].username &&
-  //           _password == registrationController.userCred[index].password) {
-  //     final _sharedPref = await SharedPreferences.getInstance();
-  //     await _sharedPref.setBool(SAVE_KEY_NAME, true);
-  //     Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (context) => WelcomePage()));
-  //   } else {
-  //     final _errorMessage = 'password and username does not matchhhhh';
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         behavior: SnackBarBehavior.floating,
-  //         backgroundColor: Colors.red,
-  //         margin: EdgeInsets.all(10),
-  //         content: Text(_errorMessage)));
-  //   }
-  // }
-
   Widget togglePassword() {
     return IconButton(
         onPressed: () {
@@ -284,5 +238,33 @@ class _LoginScreenState extends State<LoginScreen> {
         icon: _isSecurePassword
             ? Icon(Icons.visibility)
             : Icon(Icons.visibility_off));
+  }
+
+  void signIn() async {
+    CollectionReference mechanics =
+        await FirebaseFirestore.instance.collection('mechanicCredentials');
+    mechanics.get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) async {
+        if (emailController.text == doc['email'] &&
+            passwordController.text == doc['password']) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('isLoggedIn', true);
+          Provider.of<LoginController>(context, listen: false)
+              .isMechanicLoggedIn = true;
+          Provider.of<LoginController>(context, listen: false).mechanicId =
+              doc.id;
+          ShowSnackbar().showSnackbar(
+              context: context, content: "Logged in successfully");
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreenMechanic(),
+              ));
+        } else {
+          ShowSnackbar()
+              .showSnackbar(content: "Unable to login", context: context);
+        }
+      });
+    });
   }
 }

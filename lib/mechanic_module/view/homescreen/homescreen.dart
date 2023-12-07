@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:quickmech/mechanic_module/view/homescreen/widgets/panel_form/panel_form.dart';
+import 'package:provider/provider.dart';
+import 'package:quickmech/controller/login_controller/login_controller.dart';
 import 'package:quickmech/mechanic_module/view/profile_screen/profile_screen.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/constants/image_constants.dart';
 import 'package:quickmech/utils/textstyle_constants.dart';
 import 'package:quickmech/view/choose_login_type/choose_login_type.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreenMechanic extends StatefulWidget {
   const HomeScreenMechanic({super.key});
@@ -27,27 +28,27 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
       drawer: Drawer(
         child: ListView(children: [
           DrawerHeader(
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CircleAvatar(
-                    radius: 30,
+            child: InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MechanicProfileScreen(),
+                  )),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: CircleAvatar(
+                      radius: 30,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MechanicProfileScreen(),
-                        )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: width * 0.4,
+                          width: width * 0.3,
                           child: Text(
                             'Mechanic Name',
                             style: TextStyle(
@@ -61,9 +62,9 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                         )
                       ],
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           ListTile(
@@ -119,7 +120,12 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                       child: Divider(),
                     ),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        Provider.of<LoginController>(context, listen: false)
+                            .isMechanicLoggedIn = true;
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setBool('isLoggedIn', false);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -180,166 +186,147 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
       //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
       //   ),
       // ]),
-      body: Stack(
-        children: [
-          SlidingUpPanel(
-            minHeight: height * 0.3,
-            maxHeight: height * 0.8,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-            defaultPanelState: PanelState.OPEN,
-            parallaxEnabled: true,
-            parallaxOffset: .5,
-            backdropEnabled: true,
-            panelBuilder: (sc) => PanelForm(),
-            body:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Incoming Bookings',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Expanded(
-                  child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 5,
-                    child: Container(
-                      height: height * 0.45,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: ColorConstants.systemGrey)),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Incoming Bookings',
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+            child: ListView.builder(
+          itemCount: 5,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              elevation: 5,
+              child: Container(
+                height: height * 0.45,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: ColorConstants.systemGrey)),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: width * 0.8,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Elamakkara,Edapally,Ernakulam,Kerala,India",
-                                        style: TextStyleConstants.heading3,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Distance',
-                                      style: TextStyle(
-                                          color: ColorConstants.systemGrey),
-                                    ),
-                                    Text(
-                                      '6 KM',
-                                      style: TextStyleConstants.heading5,
-                                    ),
-                                  ],
+                            SizedBox(
+                              width: width * 0.8,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Elamakkara,Edapally,Ernakulam,Kerala,India",
+                                  style: TextStyleConstants.heading3,
                                 ),
-                                Container(
-                                  height: height * 0.05,
-                                  width: 1,
-                                  color: ColorConstants.systemGrey,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Time',
-                                      style: TextStyle(
-                                          color: ColorConstants.systemGrey),
-                                    ),
-                                    Text(
-                                      '45 mins',
-                                      style: TextStyleConstants.heading5,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 10),
-                              child: Text('2-wheeler',
-                                  style: TextStyle(
-                                      color: ColorConstants.systemGrey,
-                                      fontWeight: FontWeight.w600)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 10),
-                              child: Text(
-                                'TVS Ntorq 2020',
-                                style: TextStyleConstants.heading5,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  InkWell(
-                                    child: Container(
-                                      width: width * 0.4,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1,
-                                              color:
-                                                  ColorConstants.primaryBlack)),
-                                      child: Center(
-                                        child: Text(
-                                          'IGNORE',
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 69, 69, 69),
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    child: Container(
-                                      width: width * 0.4,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                          color: ColorConstants.bannerColor),
-                                      child: Center(
-                                        child: Text(
-                                          'ACCEPT',
-                                          style: TextStyle(
-                                              color:
-                                                  ColorConstants.primaryWhite,
-                                              fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
                               ),
                             )
-                          ]),
-                    ),
-                  ),
-                ),
-              ))
-            ]),
-          )
-        ],
-      ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'Distance',
+                                style:
+                                    TextStyle(color: ColorConstants.systemGrey),
+                              ),
+                              Text(
+                                '6 KM',
+                                style: TextStyleConstants.heading5,
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: height * 0.05,
+                            width: 1,
+                            color: ColorConstants.systemGrey,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                'Time',
+                                style:
+                                    TextStyle(color: ColorConstants.systemGrey),
+                              ),
+                              Text(
+                                '45 mins',
+                                style: TextStyleConstants.heading5,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
+                        child: Text('2-wheeler',
+                            style: TextStyle(
+                                color: ColorConstants.systemGrey,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
+                        child: Text(
+                          'TVS Ntorq 2020',
+                          style: TextStyleConstants.heading5,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                              child: Container(
+                                width: width * 0.4,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 1,
+                                        color: ColorConstants.primaryBlack)),
+                                child: Center(
+                                  child: Text(
+                                    'IGNORE',
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 69, 69, 69),
+                                        fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              child: Container(
+                                width: width * 0.4,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    color: ColorConstants.bannerColor),
+                                child: Center(
+                                  child: Text(
+                                    'ACCEPT',
+                                    style: TextStyle(
+                                        color: ColorConstants.primaryWhite,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+              ),
+            ),
+          ),
+        ))
+      ]),
     );
   }
 }

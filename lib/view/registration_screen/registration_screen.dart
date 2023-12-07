@@ -18,10 +18,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isSecurePassword = true;
   final FirebaseAuthServices auth = FirebaseAuthServices();
   // RegistrationController registrationController = RegistrationController();
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController usernamecontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController mobilecontroller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
   FocusNode fieldone = FocusNode();
   FocusNode fieldtwo = FocusNode();
   FocusNode fieldthree = FocusNode();
@@ -51,7 +51,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: emailcontroller,
+                    controller: emailController,
                     focusNode: fieldone,
                     onFieldSubmitted: (value) {
                       FocusScope.of(context).requestFocus(fieldtwo);
@@ -72,7 +72,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 15,
                   ),
                   TextFormField(
-                    controller: usernamecontroller,
+                    controller: usernameController,
                     scrollPhysics: NeverScrollableScrollPhysics(),
                     focusNode: fieldtwo,
                     onFieldSubmitted: (value) {
@@ -94,7 +94,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 15,
                   ),
                   TextFormField(
-                    controller: mobilecontroller,
+                    controller: mobileController,
                     scrollPhysics: NeverScrollableScrollPhysics(),
                     focusNode: fieldthree,
                     onFieldSubmitted: (value) {
@@ -116,7 +116,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 15,
                   ),
                   TextFormField(
-                    controller: passwordcontroller,
+                    controller: passwordController,
                     focusNode: fieldfour,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -202,9 +202,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   void signUp() async {
     User? user = await auth.signUpWithEmailandPassword(
-        emailcontroller.text, passwordcontroller.text);
+        emailController.text, passwordController.text);
     auth.addUser(
-        usernamecontroller.text, mobilecontroller.text, emailcontroller.text);
+        usernameController.text, mobileController.text, emailController.text);
     if (user != null) {
       Navigator.pushReplacement(
           context,
@@ -212,39 +212,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               builder: (context) => LoginScreen(
                     userLoginType: widget.userLoginType,
                   )));
-      if (widget.userLoginType == true) {
-        User? user = await auth.signUpWithEmailandPassword(
-            emailcontroller.text, passwordcontroller.text);
-        if (user != null) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoginScreen(
-                        userLoginType: widget.userLoginType,
-                      )));
-        }
-      } else {
-        CollectionReference mechanics =
-            FirebaseFirestore.instance.collection('mechanics');
-        await mechanics.add({
-          'email': emailcontroller.text,
-          'password': passwordcontroller.text,
-        }).then((value) {
-          ShowSnackbar().showSnackbar(
-              context: context,
-              content: 'Registered as a mechanic successfully');
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    LoginScreen(userLoginType: widget.userLoginType),
-              ));
-        }).catchError((error) {
-          ShowSnackbar()
-              .showSnackbar(context: context, content: 'Failed to register');
-        });
-        ;
-      }
     }
   }
 }
