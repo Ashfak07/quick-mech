@@ -1,15 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickmech/mechanic_module/view/login_screen/login_screen.dart';
 import 'package:quickmech/utils/color_constants.dart';
-import 'package:quickmech/utils/textstyle_constants.dart';
-import 'package:quickmech/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:quickmech/view/choose_login_type/widgets/page1/page1.dart';
 import 'package:quickmech/view/choose_login_type/widgets/page2/page2.dart';
 import 'package:quickmech/view/choose_login_type/widgets/page3/page3.dart';
 import 'package:quickmech/view/login_screen/login_screen.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ChooseLoginType extends StatefulWidget {
   const ChooseLoginType({super.key});
@@ -19,7 +17,6 @@ class ChooseLoginType extends StatefulWidget {
 }
 
 class _ChooseLoginTypeState extends State<ChooseLoginType> {
-  PageController _controller = PageController();
   bool onLastPage = false;
   List pages = [
     Page1(),
@@ -139,7 +136,7 @@ class _ChooseLoginTypeState extends State<ChooseLoginType> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      LoginScreen(userLoginType: userLoginType),
+                                      LoginScreenMechanic(userLoginType: userLoginType),
                                 ));
                           },
                           child: Container(

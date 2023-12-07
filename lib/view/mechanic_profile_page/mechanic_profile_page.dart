@@ -21,8 +21,8 @@ class _MechanicProfileState extends State<MechanicProfile> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<MechanicProfileController>(context, listen: false)
-        .determinePosition();
+    // Provider.of<MechanicProfileController>(context, listen: false)
+    //     .determinePosition();
     Provider.of<MechanicController>(context, listen: false).getMechanic();
     Provider.of<MechanicProfileController>(context, listen: false)
         .getDistanceBetween(
