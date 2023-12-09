@@ -8,7 +8,6 @@ import 'package:quickmech/mechanic_module/view/registration_screen/registration_
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/view/common/snackbar/snackbar_screen.dart';
 import 'package:quickmech/view/firebase_auth_implimentation/fire_base_auth.dart';
-import 'package:quickmech/view/registration_screen/registration_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreenMechanic extends StatefulWidget {
@@ -249,10 +248,9 @@ class _LoginScreenState extends State<LoginScreenMechanic> {
             passwordController.text == doc['password']) {
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLoggedIn', true);
+          prefs.setString('mechanicId', doc.id);
           Provider.of<LoginController>(context, listen: false)
               .isMechanicLoggedIn = true;
-          Provider.of<LoginController>(context, listen: false).mechanicId =
-              doc.id;
           ShowSnackbar().showSnackbar(
               context: context, content: "Logged in successfully");
           Navigator.pushReplacement(
