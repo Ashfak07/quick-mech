@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:quickmech/controller/login_controller/login_controller.dart';
+import 'package:quickmech/mechanic_module/controller/profile_controller/home_controller/home_controller.dart';
 import 'package:quickmech/mechanic_module/view/profile_screen/profile_screen.dart';
 import 'package:quickmech/utils/color_constants.dart';
 import 'package:quickmech/utils/constants/image_constants.dart';
@@ -17,7 +18,17 @@ class HomeScreenMechanic extends StatefulWidget {
 }
 
 class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
-  bool _isOnline = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    getStatusMechanic();
+    super.initState();
+  }
+
+  getStatusMechanic() async {
+    await Provider.of<HomeController>(context, listen: false).getId();
+    await Provider.of<HomeController>(context, listen: false).getStatus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +89,18 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                 activeText: "Online",
                 activeColor: ColorConstants.bannerColor,
                 inactiveText: "Offline",
-                value: _isOnline,
+                value: Provider.of<HomeController>(context).isOnline,
                 valueFontSize: 12,
                 toggleSize: 20,
                 width: 80,
                 height: 40,
                 borderRadius: 25.0,
                 showOnOff: true,
-                onToggle: (val) {
-                  setState(() {
-                    _isOnline = val;
-                  });
+                onToggle: (val) async {
+                  Provider.of<HomeController>(context, listen: false).isOnline =
+                      val;
+                  Provider.of<HomeController>(context, listen: false)
+                      .statusUpdate();
                 },
               ),
             ),
@@ -125,7 +137,8 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                             .isMechanicLoggedIn = true;
                         final SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        prefs.setBool('isLoggedIn', false);
+                        prefs.remove('isLoggedIn');
+                        prefs.remove('mechanicId');
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -163,29 +176,7 @@ class _HomeScreenMechanicState extends State<HomeScreenMechanic> {
                       image: AssetImage(ImageConstants.logo_white))),
             )),
       ),
-      // body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      //   Center(
-      //     child: Container(
-      //       height: height * 0.2,
-      //       width: width * 0.5,
-      //       decoration: BoxDecoration(
-      //           color: ColorConstants.systemGrey,
-      //           borderRadius: BorderRadius.circular(15)),
-      //     ),
-      //   ),
-      //   Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: Text(
-      //       'You are online',
-      //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-      //     ),
-      //   ),
-      //   Padding(
-      //     padding: const EdgeInsets.all(4),
-      //     child: Text('Waiting for new orders',
-      //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-      //   ),
-      // ]),
+    
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.all(8.0),

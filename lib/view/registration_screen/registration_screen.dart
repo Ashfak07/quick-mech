@@ -35,154 +35,156 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       resizeToAvoidBottomInset: false,
       body: Form(
         key: formkey,
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                  color: ColorConstants.bannerColor),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                    color: ColorConstants.bannerColor),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: emailController,
+                      focusNode: fieldone,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(fieldtwo);
+                      },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Email',
+                          prefixIcon: Icon(Icons.email)),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return ('require');
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: usernameController,
+                      scrollPhysics: NeverScrollableScrollPhysics(),
+                      focusNode: fieldtwo,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(fieldthree);
+                      },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'username',
+                          prefixIcon: Icon(Icons.person)),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return ('require');
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: mobileController,
+                      scrollPhysics: NeverScrollableScrollPhysics(),
+                      focusNode: fieldthree,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(fieldthree);
+                      },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'mobile',
+                          prefixIcon: Icon(Icons.person)),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return ('require');
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: passwordController,
+                      focusNode: fieldfour,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'password',
+                          prefixIcon: Icon(Icons.key),
+                          suffixIcon: togglePassword()),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return ('require');
+                        } else {
+                          return null;
+                        }
+                      },
+                      obscureText: _isSecurePassword,
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextFormField(
-                    controller: emailController,
-                    focusNode: fieldone,
-                    onFieldSubmitted: (value) {
-                      FocusScope.of(context).requestFocus(fieldtwo);
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email',
-                        prefixIcon: Icon(Icons.email)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return ('require');
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: usernameController,
-                    scrollPhysics: NeverScrollableScrollPhysics(),
-                    focusNode: fieldtwo,
-                    onFieldSubmitted: (value) {
-                      FocusScope.of(context).requestFocus(fieldthree);
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'username',
-                        prefixIcon: Icon(Icons.person)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return ('require');
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: mobileController,
-                    scrollPhysics: NeverScrollableScrollPhysics(),
-                    focusNode: fieldthree,
-                    onFieldSubmitted: (value) {
-                      FocusScope.of(context).requestFocus(fieldthree);
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'mobile',
-                        prefixIcon: Icon(Icons.person)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return ('require');
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    focusNode: fieldfour,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'password',
-                        prefixIcon: Icon(Icons.key),
-                        suffixIcon: togglePassword()),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return ('require');
-                      } else {
-                        return null;
-                      }
-                    },
-                    obscureText: _isSecurePassword,
-                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen(
+                                      userLoginType: widget.userLoginType,
+                                    )));
+                      },
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 1),
+                        child: Text(
+                          'Already have account',
+                          style: TextStyle(fontSize: mediawidth * .03),
+                        ),
+                      )),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen(
-                                    userLoginType: widget.userLoginType,
-                                  )));
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 1),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 5),
+                child: InkWell(
+                  onTap: () {
+                    if (formkey.currentState!.validate()) {
+                      signUp();
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorConstants.bannerColor,
+                        borderRadius: BorderRadius.circular(15)),
+                    height: 50,
+                    child: Center(
                       child: Text(
-                        'Already have account',
-                        style: TextStyle(fontSize: mediawidth * .03),
+                        "Signup",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
                       ),
-                    )),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 5),
-              child: InkWell(
-                onTap: () {
-                  if (formkey.currentState!.validate()) {
-                    signUp();
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: ColorConstants.bannerColor,
-                      borderRadius: BorderRadius.circular(15)),
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      "Signup",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
