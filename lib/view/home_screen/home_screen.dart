@@ -25,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CollectionReference mechanics =
-      FirebaseFirestore.instance.collection('mechanics');
+      FirebaseFirestore.instance.collection('mechanicCredentials');
   HomeData _homeData = HomeData();
   @override
   void initState() {
@@ -359,8 +359,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       StreamBuilder(
-                          stream: mechanics.snapshots(),
-                          builder: (context, snapshots) {
+                          stream: mechanics
+                              .where('isOnline', isEqualTo: true)
+                              .snapshots(),
+                          builder: (context,
+                              AsyncSnapshot<QuerySnapshot> snapshots) {
                             if (snapshots.hasData) {
                               return Container(
                                 height: Mediaheight * .4,
@@ -408,25 +411,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   child: Column(
                                                     children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        child: Image.network(
-                                                          Provider.of<MechanicController>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .mechanicList[
-                                                                  index]
-                                                              .image
-                                                              .toString(),
-                                                          height: 100,
-                                                          width:
-                                                              double.infinity,
+                                                      Container(
+                                                        width: 350,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          // child: Image.network(
+                                                          //   Provider.of<MechanicController>(
+                                                          //           context,
+                                                          //           listen: false)
+                                                          //       .mechanicList[
+                                                          //           index]
+                                                          //       .image
+                                                          //       .toString(),
+                                                          //   height: 100,
+                                                          //   width:
+                                                          //       double.infinity,
+                                                          // ),
                                                         ),
                                                       ),
-                                                      Text(mech['email']),
-                                                      Text(mech['password']),
+                                                      Text(mech['fullName']),
+                                                      Text(mech['mobile']),
+                                                      Text(mech['category']),
                                                     ],
                                                   ),
                                                 ),
